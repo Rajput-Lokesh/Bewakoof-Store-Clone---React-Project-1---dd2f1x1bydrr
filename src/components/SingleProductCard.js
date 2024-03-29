@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+import { ProductDetails } from "./ProductDetails";
 
 export const SingleProductCard = () => {
+  const naviage = useNavigate();
   const productUrl =
     "https://academics.newtonschool.co/api/v1/ecommerce/clothes/products";
   const [getProduct, setProduct] = useState([]);
@@ -79,7 +82,15 @@ export const SingleProductCard = () => {
               //   alignItems: "center",
             }}
           >
-            <img width={"300px"} src={product.displayImage} />
+            <img
+              onClick={(e) => {
+                <ProductDetails value={e} />;
+                alert(product._id);
+                alert(e);
+              }}
+              width={"300px"}
+              src={product.displayImage}
+            />
             <p style={{ position: "absolute", top: "0px", background: "gray" }}>
               PLUS_SIZE
             </p>

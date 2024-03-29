@@ -13,10 +13,11 @@ const getUserFromLocalStorage = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(getUserFromLocalStorage());
+  const name = "lokesh";
 
   return (
     <>
-      <AuthProvider.Provider value={{ user, setUser }}>
+      <AuthProvider.Provider value={{ user, setUser, name }}>
         {children}
       </AuthProvider.Provider>
     </>

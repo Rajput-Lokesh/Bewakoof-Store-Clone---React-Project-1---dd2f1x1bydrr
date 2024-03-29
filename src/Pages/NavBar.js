@@ -3,7 +3,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useState } from "react";
-import { DropDown } from "./DropDown";
+import { DropDown } from "../components/DropDown";
 
 const NavBar = () => {
   const [getSearchProdct, setSearchProduct] = useState("");
@@ -23,12 +23,13 @@ const NavBar = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "5px",
+          padding: "5px 100px",
         }}
       >
         <div style={{ display: "flex" }}>
           <img
-            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.investcorp.com%2Finvestcorp-leads-us-11-2-million-investment-in-bewakoof-com%2F&psig=AOvVaw2_QHn4J1CXQcopVmbM9vcX&ust=1711617094339000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCMC6-tiMlIUDFQAAAAAdAAAAABAf"
+            style={{ width: "100px", marginRight: "30px" }}
+            src="https://www.investcorp.com/wp-content/uploads/2019/11/42_Bewakoof_Logo_Black.png"
             alt="bewkoofLogo"
           />
           <ol style={{ display: "flex", listStyle: "none", gap: "20px" }}>
