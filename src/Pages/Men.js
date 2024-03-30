@@ -2,13 +2,9 @@ import React, { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
-import { ProductDetails } from "../Pages/ProductDetails";
 
-export const SingleProductCard = () => {
-  const naviage = useNavigate();
-  const productUrl =
-    "https://academics.newtonschool.co/api/v1/ecommerce/clothes/products";
+export const Men = () => {
+  const productUrl = `https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?filter={"gender":"Men"}`;
   const [getProduct, setProduct] = useState([]);
   useEffect(() => {
     fetch(productUrl, {
@@ -40,42 +36,16 @@ export const SingleProductCard = () => {
     });
     setProduct(sortedProductRating);
   };
-
   return (
     <>
-      {/* <Button variant="contained">Sort By Rating</Button> */}
-      {/* <Carousal value={getProduct} /> */}
-      <button
-        onClick={sortPrice}
-        style={{
-          backgroundColor: "black",
-          color: "white",
-          padding: "5px 10px",
-          borderRadius: "10px",
-          margin: "10px",
-        }}
-      >
-        Sort By Price
-      </button>
-      <button
-        onClick={sortProduct}
-        style={{
-          backgroundColor: "black",
-          color: "white",
-          padding: "5px 10px",
-          borderRadius: "10px",
-          margin: "10px",
-        }}
-      >
-        Sort By Rating
-      </button>
+      <h1 className="text-center text-4xl my-3">{"<- Men Product Page ->"}</h1>
       <div className="flex bg-white flex-wrap   justify-between bg-slate-700">
         {getProduct.map((product, index) => (
           <div
             style={{
               position: "relative",
               //   border: "2px solid black",
-              maxWidth: "250px",
+              maxWidth: "24%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -90,14 +60,14 @@ export const SingleProductCard = () => {
                 alert(product._id);
                 alert(e);
               }}
-              width={"300px"}
+              width={"450px"}
               src={product.displayImage}
             />
             <p style={{ position: "absolute", top: "0px", background: "gray" }}>
               PLUS_SIZE
             </p>
             <div
-              style={{ position: "absolute", bottom: "160px" }}
+              style={{ position: "absolute", bottom: "200px" }}
               className="flex"
             >
               <StarIcon color="success"></StarIcon>
@@ -125,26 +95,6 @@ export const SingleProductCard = () => {
           </div>
         ))}
       </div>
-      {/* <div className="flex flex-wrap">
-        {getProduct.map((product, index) => (
-          <div
-            key={index}
-            className="border flex-col  justify-center items-center max-width-3"
-          >
-            <p>{product.name}</p>
-            <img
-              width={"200px"}
-              src={product.displayImage}
-              alt={`Product ${index}`}
-            />{" "}
-            {product.price}
-            {product.description}
-            {"Rating "}
-            <br />
-            {product.ratings} {/* Add alt text for accessibility */}
-      {/* </div>
-        ))}
-      </div> */}{" "}
     </>
   );
 };
