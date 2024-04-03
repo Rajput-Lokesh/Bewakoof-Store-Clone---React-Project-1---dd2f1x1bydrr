@@ -5,125 +5,96 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { ProductDetails } from "../Pages/ProductDetails";
 
-export const SingleProductCard = () => {
-  const naviage = useNavigate();
-  const productUrl =
-    "https://academics.newtonschool.co/api/v1/ecommerce/clothes/products";
-  const [getProduct, setProduct] = useState([]);
-  useEffect(() => {
-    fetch(productUrl, {
-      headers: {
-        projectId: "gar9pityowqx",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        // alert( JSON.stringify(res.data));
-        console.log("I m from Single Product");
-        console.log(res);
-        setProduct(res.data);
-        console.log(res.data);
-      });
-  }, []);
+export const SingleProductCard = (product) => {
+  const navigate = useNavigate();
+  // const productUrl =
+  //   "https://academics.newtonschool.co/api/v1/ecommerce/clothes/products";
+  // const [getProduct, setProduct] = useState([]);
+  // useEffect(() => {
+  //   fetch(productUrl, {
+  //     headers: {
+  //       projectId: "gar9pityowqx",
+  //     },
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((res) => {
+  //       // alert( JSON.stringify(res.data));
+  //       console.log("I m from Single Product");
+  //       console.log(res);
+  //       setProduct(res.data);
+  //       console.log(res.data);
+  //     });
+  // }, []);
 
-  const sortProduct = () => {
-    let sortedProductRating = [...getProduct].sort((a, b) => {
-      return b.ratings - a.ratings;
-    });
-    setProduct(sortedProductRating);
-  };
-  const sortPrice = () => {
-    let sortedProductRating = [...getProduct].sort((a, b) => {
-      return a.price - b.price;
-    });
-    setProduct(sortedProductRating);
-  };
+  // const sortProduct = () => {
+  //   let sortedProductRating = [...getProduct].sort((a, b) => {
+  //     return b.ratings - a.ratings;
+  //   });
+  //   setProduct(sortedProductRating);
+  // };
+  // const sortPrice = () => {
+  //   let sortedProductRating = [...getProduct].sort((a, b) => {
+  //     return a.price - b.price;
+  //   });
+  //   setProduct(sortedProductRating);
+  // };
 
   return (
     <>
-      {/* <Button variant="contained">Sort By Rating</Button> */}
-      {/* <Carousal value={getProduct} /> */}
-      <button
-        onClick={sortPrice}
-        style={{
-          backgroundColor: "black",
-          color: "white",
-          padding: "5px 10px",
-          borderRadius: "10px",
-          margin: "10px",
-        }}
-      >
-        Sort By Price
-      </button>
-      <button
-        onClick={sortProduct}
-        style={{
-          backgroundColor: "black",
-          color: "white",
-          padding: "5px 10px",
-          borderRadius: "10px",
-          margin: "10px",
-        }}
-      >
-        Sort By Rating
-      </button>
       <div className="flex bg-white flex-wrap   justify-between bg-slate-700">
-        {getProduct.map((product, index) => (
+        <div
+          style={{
+            position: "relative",
+            //   border: "2px solid black",
+            maxWidth: "300px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            margin: "5px",
+            //   alignItems: "center",
+          }}
+        >
+          <img
+            className="cursor-pointer"
+            onClick={() => {
+              navigate(`/subCategory/productdetails/${product.product._id}`);
+            }}
+            width={"300px"}
+            src={product.product.displayImage}
+          />
+          <p style={{ position: "absolute", top: "0px", background: "gray" }}>
+            PLUS_SIZE
+          </p>
           <div
+            style={{ position: "absolute", bottom: "220px" }}
+            className="flex"
+          >
+            <StarIcon color="success"></StarIcon>
+            <div className="text-slate-400">
+              {product.product.ratings.toFixed(2)}{" "}
+            </div>
+          </div>
+          <p>Bewakoof®</p>
+          <p>{product.product.name}</p>
+          <p>{product.product.subCategory}</p>
+          <p>
+            {" "}
+            <CurrencyRupeeIcon style={{ fontSize: "20px" }} />{" "}
+            {product.product.price}
+          </p>
+          <Button
             style={{
-              position: "relative",
-              //   border: "2px solid black",
-              maxWidth: "250px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              margin: "5px",
-              //   alignItems: "center",
+              padding: "5px",
+              borderTop: "1px solid black",
+              borderLeft: "1px solid black",
+              borderRight: "1px solid black",
             }}
           >
-            <img
-              onClick={(e) => {
-                // <ProductDetails value={e} />;
-
-                alert(product._id);
-                alert(e);
-              }}
-              width={"300px"}
-              src={product.displayImage}
-            />
-            <p style={{ position: "absolute", top: "0px", background: "gray" }}>
-              PLUS_SIZE
-            </p>
-            <div
-              style={{ position: "absolute", bottom: "160px" }}
-              className="flex"
-            >
-              <StarIcon color="success"></StarIcon>
-              <div className="text-slate-400">
-                {product.ratings.toFixed(2)}{" "}
-              </div>
-            </div>
-            <p>Bewakoof®</p>
-            <p>{product.name}</p>
-            <p>{product.subCategory}</p>
-            <p>
-              {" "}
-              <CurrencyRupeeIcon style={{ fontSize: "20px" }} /> {product.price}
-            </p>
-            <Button
-              style={{
-                padding: "5px",
-                borderTop: "1px solid black",
-                borderLeft: "1px solid black",
-                borderRight: "1px solid black",
-              }}
-            >
-              VICOUS RYAN
-            </Button>
-          </div>
-        ))}
+            VICOUS RYAN
+          </Button>
+        </div>
       </div>
       {/* <div className="flex flex-wrap">
         {getProduct.map((product, index) => (

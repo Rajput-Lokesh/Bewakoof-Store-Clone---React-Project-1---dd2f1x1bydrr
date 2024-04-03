@@ -13,6 +13,21 @@ const getUserFromLocalStorage = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(getUserFromLocalStorage());
+  const [getGender, setGender] = useState("");
+  const [getSearchProdct, setSearchProduct] = useState("");
+
+  const API_BASE_URL = `https://academics.newtonschool.co`;
+
+  const afterSliderSmallCarousal = [
+    "https://images.bewakoof.com/uploads/grid/app/category-icon-Desktop-common--1--1706616684.gif",
+    "https://images.bewakoof.com/uploads/grid/app/category-icon-Desktop-New-Arrivals-1706616683.jpg",
+    "https://images.bewakoof.com/uploads/grid/app/category-icon-for-Desktop---1--1697613231.jpg",
+    "https://images.bewakoof.com/uploads/grid/app/category-icon-Desktop--1706616685.jpg",
+    "https://images.bewakoof.com/uploads/grid/app/thumbnails-Revamp-Customization--1--1693212866.jpg",
+    "https://images.bewakoof.com/uploads/grid/app/thumbnails-Revamp-Combos-1693212865.gif",
+    "https://images.bewakoof.com/uploads/grid/app/thumbnails-Revamp-Vote-1693212866.jpg",
+    "https://images.bewakoof.com/uploads/grid/app/last-size-new-thumbnaik-1668508337.jpg",
+  ];
 
   const getCategoryImageObject = {
     hoodie:
@@ -24,12 +39,12 @@ export const AuthProvider = ({ children }) => {
     jumpsuit:
       "https://images.bewakoof.com/original/women-s-orange-jumpsuit-495715-1656163087-3.jpg",
     shirt:
-      "https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/16190386/2021/11/27/c32bacf9-b432-405f-9ffa-b367fb31bf911637988409925-The-Indian-Garage-Co-Men-Shirts-6861637988409202-1.jpg",
+      "https://images.bewakoof.com/t1080/men-s-blue-brain-wash-graphic-printed-oversized-hoodies-624567-1703686117-1.jpg",
 
     kurta:
-      "https://img.jagrantv.com/webstories/ws5601/1697873140-classic-sherwani.jpg",
+      "https://images.bewakoof.com/t1080/men-s-blue-brain-wash-graphic-printed-oversized-hoodies-624567-1703686117-1.jpg",
     kurti:
-      "https://images.jdmagicbox.com/quickquotes/images_main/flaming-grey-kurti-ku27200408-xl-164460948-b65sk.jpg",
+      "https://images.bewakoof.com/t1080/men-s-blue-brain-wash-graphic-printed-oversized-hoodies-624567-1703686117-1.jpg",
     pyjamas:
       "https://img.tatacliq.com/images/i11/437Wx649H/MP000000017622604_437Wx649H_202305211434211.jpeg",
     shorts:
@@ -57,6 +72,12 @@ export const AuthProvider = ({ children }) => {
     setUser,
     getCategoryImageObject,
     getSliderImageObject,
+    afterSliderSmallCarousal,
+    API_BASE_URL,
+    getSearchProdct,
+    setSearchProduct,
+    getGender,
+    setGender,
   };
   return (
     <>

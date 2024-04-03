@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     spacing: {
       1: "8px",
-      2: "120px",
+      2: "12px",
       3: "16px",
       4: "24px",
       5: "32px",
@@ -24,6 +24,7 @@ module.exports = {
       "bubble-gum": "#ff77e9",
       bermuda: "#78dcca",
       Lokesh: "blue",
+      gold: "#FFD700",
     },
   },
   plugins: [],

@@ -1,69 +1,69 @@
-import { useEffect, useState } from "react";
-import StarIcon from "@mui/icons-material/Star";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
-import Button from "@mui/material/Button";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useAuth } from "../Providers/AuthProvider";
 
 const NavCat = () => {
-  const [categories, setCategories] = useState([]);
-  const [subCategory, setSubCategory] = useState("shirt");
-  const CategoriesUrl =
-    "https://academics.newtonschool.co/api/v1/ecommerce/clothes/categories";
+  const [getCategories, setCategories] = useState([]);
+  const { API_BASE_URL, getGender } = useAuth();
+  let navigate = useNavigate();
 
-  const [getProduct, setProduct] = useState([]);
+  const catUrl = `${API_BASE_URL}/api/v1/ecommerce/clothes/categories`;
+
   useEffect(() => {
-    const productUrl = `https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?filter={"gender":"Women","subCategory":"${subCategory}"}`;
-
-    fetch(productUrl, {
+    fetch(catUrl, {
       headers: {
         projectId: "gar9pityowqx",
       },
     })
       .then((res) => res.json())
-      .then((res) => {
-        console.log("I m from Single Product");
-        console.log(res);
-        setProduct(res.data);
-        console.log(res.data);
-      });
-  }, [subCategory]);
-
-  useEffect(() => {
-    fetch(CategoriesUrl, {
-      headers: {
-        projectId: "gar9pityowqx",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        setCategories(res.data);
+      .then((data) => {
+        setCategories(data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
       });
   }, []);
 
+  const navi = (subCategory) => {
+    navigate(`/productlist?type=${subCategory}`);
+  };
   return (
     <div>
       <nav
         style={{
+          borderBottom: "1px solid black",
           display: "flex",
           justifyContent: "space-evenly",
-          borderBottom: "2px solid black",
-          gap: "10px",
-          padding: "15px",
+          alignItems: "center",
+          padding: "5px 100px",
+          position: "fixed", // Add this line to make the navbar fixed
+          width: "100%", // Add this line to make the navbar full width
+          top: "60px", // Add this line to position the navbar at the top
+          backgroundColor: "white", // Add this line to set the background color of the navbar
+          zIndex: "999", // Add this line to set the z-index to ensure the navbar is above other content
+          // style={{
+          //   display: "flex",
+          //   justifyContent: "space-evenly",
+
+          //   gap: "10px",
+          //   padding: "15px 15px 30px",
         }}
       >
-        {categories.map((catName, index) => (
+        {getCategories.map((catName, index) => (
           <p
+            className="cursor-pointer"
             key={index}
             onClick={() => {
-              setSubCategory(catName);
+              // alert(catName);
+              navi(catName);
             }}
           >
             {catName.toUpperCase()}
           </p>
         ))}
       </nav>
-      {/* <h1 className="text-center text-4xl my-3">{`<- ${subCategory} Product Page ->`}</h1>
-      <div className="flex flex-wrap justify-around bg-slate-700 p-4">
+      {/* <h1 className="text-center text-4xl my-3">{` ${subCategory.toLocaleUpperCase()} PRODUCT PAGE `}</h1>
+      <div className="flex flex-wrap justify-around bg-slate-700 p-4 ">
         {getProduct.map((product, index) => (
           <div
             key={index}
@@ -71,6 +71,7 @@ const NavCat = () => {
               position: "relative",
               maxWidth: "24%",
               margin: "5px",
+              height: "",
             }}
           >
             <img
@@ -85,13 +86,15 @@ const NavCat = () => {
               PLUS_SIZE
             </p>
             <div
-              style={{ position: "absolute", bottom: "0px" }}
+              style={{ position: "absolute", bottom: "200px" }}
               className="flex"
             >
               <StarIcon color="success" />
               <div className="text-slate-400">{product.ratings.toFixed(2)}</div>
             </div>
-            <p>Bewakoof®</p>
+            <p className="flex justify-between">
+              <b>Bewakoof®</b> <FavoriteBorderIcon />
+            </p>
             <p>{product.name}</p>
             <p>{product.subCategory}</p>
             <p>
@@ -103,6 +106,7 @@ const NavCat = () => {
                 borderTop: "1px solid black",
                 borderLeft: "1px solid black",
                 borderRight: "1px solid black",
+                width: "100%",
               }}
             >
               VICOUS RYAN

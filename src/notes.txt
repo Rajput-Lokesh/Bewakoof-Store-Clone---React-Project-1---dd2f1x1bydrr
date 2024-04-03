@@ -29,3 +29,15 @@ npm install @mui/icons-material
   rel="stylesheet"
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
 />
+
+=========================================================
+npm install dompurify
+
+"
+To handle a response containing HTML markup like the one you provided in React, you would typically sanitize and render the HTML content safely to prevent any potential security vulnerabilities such as Cross-Site Scripting (XSS) attacks. One common way to achieve this is by using a library like dompurify to sanitize the HTML content before rendering it."
+      const sanitizedDescription = DOMPurify.sanitize(response.data.description);
+      setProductDescription(sanitizedDescription);
+
+      ==============================================
+      have to integrate add Google Map
+      =====================
