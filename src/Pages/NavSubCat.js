@@ -20,7 +20,7 @@ const NavCat = () => {
         setCategories(data.data);
       })
       .catch((error) => {
-        console.error("Error fetching products:", error);
+        // console.error("Error fetching products:", error);
       });
   }, []);
 
