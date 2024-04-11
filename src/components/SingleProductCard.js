@@ -4,118 +4,103 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { ProductDetails } from "../Pages/ProductDetails";
+import axios from "axios";
+import { useAuth } from "../Providers/AuthProvider";
 
 export const SingleProductCard = (product) => {
+  console.log(product);
+  const {
+    setWishListItems,
+    setWishListCount,
+    addToCart,
+    fetchCartItems,
+    fetchWishList,
+  } = useAuth();
   const navigate = useNavigate();
-  // const productUrl =
-  //   "https://academics.newtonschool.co/api/v1/ecommerce/clothes/products";
-  // const [getProduct, setProduct] = useState([]);
-  // useEffect(() => {
-  //   fetch(productUrl, {
-  //     headers: {
-  //       projectId: "gar9pityowqx",
-  //     },
-  //   })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((res) => {
-  //       // alert( JSON.stringify(res.data));
-  //       console.log("I m from Single Product");
-  //       console.log(res);
-  //       setProduct(res.data);
-  //       console.log(res.data);
-  //     });
-  // }, []);
 
-  // const sortProduct = () => {
-  //   let sortedProductRating = [...getProduct].sort((a, b) => {
-  //     return b.ratings - a.ratings;
-  //   });
-  //   setProduct(sortedProductRating);
-  // };
-  // const sortPrice = () => {
-  //   let sortedProductRating = [...getProduct].sort((a, b) => {
-  //     return a.price - b.price;
-  //   });
-  //   setProduct(sortedProductRating);
-  // };
+  const deleteWishListItems = async (id) => {
+    try {
+      const response = await axios.delete(
+        `https://academics.newtonschool.co/api/v1/ecommerce/wishlist/${id}`,
+        {
+          headers: {
+            projectID: "gar9pityowqx",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.data.status === "success") {
+        // setCartItemToggle(!cartItemToggle);
+        setWishListCount(response.data.results);
+        setWishListItems(response.data.data.items);
+        localStorage.setItem("wishListCount", response.data.results);
+        localStorage.setItem(
+          "wishList",
+          JSON.stringify(response.data.data.items)
+        );
+        console.log("Wish List Count => ", wishListCount);
+      }
+      // setwishListToggle(!wishListToggle);
+    } catch (err) {
+      console.log("Error shows ", err);
+    }
+  };
 
   return (
     <>
-      <div className="flex bg-white flex-wrap   justify-between bg-slate-700">
-        <div
-          style={{
-            position: "relative",
-            //   border: "2px solid black",
-            maxWidth: "300px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            margin: "5px",
-            //   alignItems: "center",
+      <div className="relative w-[300px] flex max-h-full flex-col m-1 shadow-lg rounded-[20px] ">
+        <img
+          className="cursor-pointer rounded-t-lg w-[450px] hover:opacity-60"
+          onClick={() => {
+            navigate(
+              `/wishlist/productdetails/${product.product.products?._id}`
+            );
           }}
+          src={product.product.products?.displayImage}
+        />
+        <p className="absolute top-[0px] left-[0px] bg-grey py-[2px] px-[6px] rounded-br-lg rounded-tl-lg">
+          PLUS_SIZE
+        </p>
+        <button
+          onClick={() => deleteWishListItems(product.product.products._id)}
+          className="w-[30px] m-1 h-[30px] absolute top-[0px] right-[0px] border  bg-grey rounded-full flex justify-center items-center hover:bg-white "
         >
-          <img
-            className="cursor-pointer"
-            onClick={() => {
-              navigate(`/subCategory/productdetails/${product.product._id}`);
-            }}
-            width={"300px"}
-            src={product.product.displayImage}
-          />
-          <p style={{ position: "absolute", top: "0px", background: "gray" }}>
-            PLUS_SIZE
-          </p>
-          <div
-            style={{ position: "absolute", bottom: "220px" }}
-            className="flex"
-          >
-            <StarIcon color="success"></StarIcon>
-            <div className="text-slate-400">
-              {product.product.ratings.toFixed(2)}{" "}
-            </div>
+          X
+        </button>
+        <div className="absolute flex bottom-[200px]">
+          <StarIcon color="success"></StarIcon>
+          <div className="text-slate-400">
+            {product.product.products?.ratings?.toFixed(2)}
           </div>
-          <p>Bewakoof®</p>
-          <p>{product.product.name}</p>
-          <p>{product.product.subCategory}</p>
-          <p>
-            {" "}
-            <CurrencyRupeeIcon style={{ fontSize: "20px" }} />{" "}
-            {product.product.price}
-          </p>
-          <Button
-            style={{
-              padding: "5px",
-              borderTop: "1px solid black",
-              borderLeft: "1px solid black",
-              borderRight: "1px solid black",
-            }}
-          >
-            VICOUS RYAN
-          </Button>
         </div>
+        <p>Bewakoof®</p>
+        <div className="h-[60px]">
+          <p>{product.product.products?.name}</p>
+        </div>
+
+        <p>
+          {" "}
+          <CurrencyRupeeIcon style={{ fontSize: "20px" }} />{" "}
+          {product.product.products?.price}
+        </p>
+
+        <button
+          onClick={() => {
+            addToCart(product.product.products._id);
+            deleteWishListItems(product.product.products._id);
+            fetchCartItems();
+          }}
+          className="border rounded-md mx-1 bg-bermuda text-white my-1 p-1"
+        >
+          Move To Bag
+        </button>
       </div>
-      {/* <div className="flex flex-wrap">
-        {getProduct.map((product, index) => (
-          <div
-            key={index}
-            className="border flex-col  justify-center items-center max-width-3"
-          >
-            <p>{product.name}</p>
-            <img
-              width={"200px"}
-              src={product.displayImage}
-              alt={`Product ${index}`}
-            />{" "}
-            {product.price}
-            {product.description}
-            {"Rating "}
-            <br />
-            {product.ratings} {/* Add alt text for accessibility */}
-      {/* </div>
-        ))}
-      </div> */}{" "}
     </>
   );
 };
+
+{
+  /*
+
+*/
+}

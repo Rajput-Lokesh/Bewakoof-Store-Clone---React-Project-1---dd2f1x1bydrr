@@ -4,69 +4,76 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useState } from "react";
 import { DropDown } from "../components/DropDown";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import PersonPinIcon from "@mui/icons-material/PersonPin";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { HoverableComponent } from "../components/HoverableComponent";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Navigate, NavLink, useNavigate, Link } from "react-router-dom";
 import React from "react";
 import { useAuth } from "../Providers/AuthProvider";
+import MoodIcon from "@mui/icons-material/Mood";
 
 const NavBar = () => {
+  const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
-  const { setSearchProduct, setGender } = useAuth();
-  const [isDropDownOpen, setDropDownOpen] = useState(false);
+  const {
+    setSearchProduct,
+    setGender,
+    getToken,
+    getName,
+    NameHandler,
+    TokenHandler,
+    wishListCount,
+    setWishListCount,
+    getProductQuntityInAddToCart,
+    setCartItemCount,
+    cartItemCount,
+  } = useAuth();
 
   const inputHandler = (e) => {
-    // console.log(e.target.value);
     setSearchProduct(e.target.value.trim());
     navigate("/productlist");
   };
-  const [isBol, setBol] = useState(false);
 
+  const logOutHandler = () => {
+    setWishListCount(0);
+    setCartItemCount(0);
+    NameHandler(null);
+    TokenHandler(null);
+    localStorage.removeItem("name");
+    localStorage.removeItem("token");
+    localStorage.removeItem("cartItem");
+    localStorage.removeItem("cartList");
+    localStorage.removeItem("wishListCount");
+    localStorage.removeItem("wishList");
+    navigate("/");
+
+    // console.log("Log Out handler");
+    // console.log(localStorage.getItem("token"));
+    // console.log(localStorage.getItem("name"));
+  };
+
+  function ProtectedRoute({ children }) {
+    if (getToken) {
+      return children;
+    } else {
+      return <Navigate to="/login" />;
+    }
+  }
   return (
     <>
-      <nav
-        style={{
-          borderBottom: "1px solid black",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "5px 100px",
-          position: "fixed",
-          width: "100%",
-          top: "0",
-          backgroundColor: "white",
-          zIndex: "999",
-          borderBottom: "2px solid black",
-        }}
-      >
+      <nav className="flex justify-between items-center px-[100px] py-[5px] fixed w-full top-[0px] bg-white z-40 border-b-[2px]">
         <div style={{ display: "flex" }}>
           <NavLink to="/">
             <img
-              className="cursor-pointer"
-              style={{ width: "100px", marginRight: "30px" }}
+              className="cursor-pointer w-[100px] mr-[30px]"
               src="https://www.investcorp.com/wp-content/uploads/2019/11/42_Bewakoof_Logo_Black.png"
               alt="bewkoofLogo"
             />
           </NavLink>
-          {/* <div>
-            <div
-              onMouseOver={() => {
-                setBol(!isBol);
-              }}
-              onMouseLeave={() => {
-                setBol(!isBol);
-              }}
-            >
-              Category
-            </div>
-            {isBol && (
-              <div style={{ position: "absolute", zIndex: "-1" }}>
-                <p>1</p>
-                <p>2</p>
-                <p>3</p>
-              </div>
-            )}
-          </div> */}
-          <ol style={{ display: "flex", listStyle: "none", gap: "20px" }}>
+
+          <ol className="flex gap-[20px] list-none">
             <li
               className="cursor-pointer"
               onClick={() => {
@@ -88,42 +95,104 @@ const NavBar = () => {
           </ol>
         </div>
 
-        <div>
-          <div
-            style={{
-              display: "flex",
-              listStyle: "none",
-              gap: "20px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                border: "2px solid black",
-                borderRadius: "10px",
-                alignItems: "center",
-              }}
-            >
-              <SearchOutlinedIcon />
-              <input
-                onChange={inputHandler}
-                placeholder="search by products or collection"
-                style={{
-                  borderRadius: "10px",
-                  border: "none",
-                  outline: "none",
-                  padding: "5px 15px",
-                }}
-              />
+        <div className="flex">
+          <div className="hide flex  items-center border h-10 w-full m-1 max-w-md px-2 rounded-md ">
+            <input
+              type="text"
+              onChange={inputHandler}
+              placeholder="search by products or collection"
+              className="w-[300px] bg-transparent outline-none border-none px-3 placeholder:text-sm text-black m-1"
+            />
+            <SearchOutlinedIcon className="text-black text-2xl" />
+          </div>
+
+          <div className="flex justify-center items-center gap-1">
+            <div className="relative inline-block   px-3 text-left">
+              <div className="inline-flex rounded-md ">
+                <button
+                  type="button"
+                  className="inline-flex items-center font-bold justify-center w-full"
+                  onClick={() => setShowOptions(!showOptions)}
+                >
+                  {getName ? (
+                    <p className="text-grey flex gap-1 shadow-md py-1 px-4 rounded bg-silver">
+                      <MoodIcon /> {getName}
+                    </p>
+                  ) : (
+                    <div>
+                      <AccountBoxIcon className="text-2xl hover:text-teal-400" />
+                      <p className="text-grey"> {"LogIn/Register"}</p>
+                    </div>
+                  )}
+                </button>
+              </div>
+
+              {showOptions && (
+                <div
+                  onMouseLeave={() => setShowOptions(false)}
+                  className="absolute z-40 mt-[10px] text-sm w-[150px] rounded-md shadow-l bg-grey text-silver"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <div className="py-1" role="none">
+                    {getName ? (
+                      <>
+                        <Link
+                          to="/wishlist"
+                          className="block px-3 py-2 font-bold  hover:bg-black hover:text-white"
+                        >
+                          <FavoriteBorderIcon className="inline mr-2 " /> My
+                          Wishlist
+                        </Link>
+
+                        <button
+                          onClick={logOutHandler}
+                          className="block px-3 py-2 font-bold hover:bg-black hover:text-white "
+                          role="menuitem"
+                        >
+                          <LogoutIcon /> Logout
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <Link
+                          to="/login"
+                          className="block px-4 py-2 font-bold hover:bg-teal-400 hover:text-gray-900"
+                          role="menuitem"
+                        >
+                          <PersonPinIcon className="inline" /> Login
+                        </Link>
+                        <Link
+                          to="/register"
+                          className="block px-4 py-2 font-bold hover:bg-teal-400 hover:text-gray-900"
+                          role="menuitem"
+                        >
+                          <PersonAddIcon className="inline" /> Register
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
-            <div
-              style={{ width: "2px", height: "35px", background: "gray" }}
-            ></div>
-            <button onClick={() => navigate("/login")} variant="contained">
-              Login
-            </button>
-            <FavoriteBorderIcon />
-            <ShoppingBagOutlinedIcon />
+
+            <div className="flex items-center">
+              {localStorage.getItem("token") ? (
+                <Link to="/addtocart">
+                  <ShoppingBagOutlinedIcon />
+                </Link>
+              ) : (
+                <Link to="/login">
+                  <ShoppingBagOutlinedIcon />
+                </Link>
+              )}
+
+              <p className="font-bold text-green">
+                {localStorage.getItem("token") ? (
+                  <sup>{`${cartItemCount}`}</sup>
+                ) : null}
+              </p>
+            </div>
           </div>
         </div>
       </nav>

@@ -4,11 +4,14 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import StarIcon from "@mui/icons-material/Star";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
-import axios from "axios"; // Import Axios
+import axios from "axios";
+import { getRequestForPegination } from "../apiServices/ApiCallBewkoof";
 import { useAuth } from "../Providers/AuthProvider";
+import { AsideFilters } from "../components/AsideFilters";
+import { SingleProductCard } from "../components/SingleProductCard";
 
 export const ProductList = () => {
-  const { API_BASE_URL, getSearchProdct, getGender } = useAuth();
+  const { API_BASE_URL, getSearchProdct, getGender, setGender } = useAuth();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [getError, setError] = useState(null);
@@ -18,10 +21,9 @@ export const ProductList = () => {
 
   const [page, setPage] = useState(1);
   const [isFetching, setIsFetching] = useState(false);
-  const [initialApiCallMade, setInitialApiCallMade] = useState(false);
 
   const fetchData = async () => {
-    if (isFetching || (initialApiCallMade && page > 1)) {
+    if (isFetching) {
       return;
     }
 
@@ -40,12 +42,7 @@ export const ProductList = () => {
 
       setProducts((prevData) => [...prevData, ...res.data.data]);
 
-      // Only increment page if it's not the initial call
-      if (!initialApiCallMade) {
-        setInitialApiCallMade(true);
-      } else {
-        setPage((prevPage) => prevPage + 1);
-      }
+      setPage((prevPage) => prevPage + 1); // Update page here
     } catch (error) {
       console.error("Error fetching data:", error);
       setError("Error fetching data. Please try again.");
@@ -82,7 +79,7 @@ export const ProductList = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   useEffect(() => {
     fetchData();
@@ -125,6 +122,9 @@ export const ProductList = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.status === "fail") {
+          navigate("*");
+        }
         setProducts(data.data);
       })
       .catch((error) => {
@@ -140,87 +140,47 @@ export const ProductList = () => {
     xyzFun();
   }, [getGender, subCategory]);
 
+  // Filter Sort bye price or sort by rating
+
   return (
     <>
       {getError ? <div>{getError}</div> : null}
       <div className="flex" style={{ position: "absolute", top: "100px" }}>
-        <div
-          className="w-[20%] h-screen mt-[90px] p-2"
-          style={{ background: "gray" }}
-        >
-          <select className="w-full">
-            <option>Men</option>
-            <option>Women</option>
-          </select>
-          <select className="w-full">
-            <option value="" disabled selected>
-              Men
-            </option>
-            <option>Tshirt</option>
-            <option>Truoser</option>
-            <option>Shirt</option>
-            <option>Joggers</option>
-          </select>
-
-          <select className="w-full">
-            <option value="" disabled selected>
-              Women
-            </option>
-            <option>Tshirt</option>
-            <option>Shorts</option>
-            <option>Capri</option>
-            <option>Joggers</option>
-          </select>
-        </div>
+        <AsideFilters list={products} setList={setProducts} />
 
         <div className="w-[80%]">
-          <h1 className="text-center text-3xl my-1">
-            {getGender} Product List
-          </h1>
-          <div className="flex flex-wrap justify-around bg-slate-700 p-4 ">
+          <div className="flex   flex-wrap justify-around bg-slate-700 p-4 ">
             {products ? (
               products.map((product, index) => (
+                // <SingleProductCard product={product} />
                 <div
+                  className="relative max-w-[23%] max-h-full m-1 shadow-lg rounded-[20px]"
                   key={index}
-                  style={{
-                    position: "relative",
-                    maxWidth: "24%",
-                    margin: "5px",
-                    height: "",
-                  }}
                 >
                   <img
-                    className="cursor-pointer"
+                    className="cursor-pointer rounded-t-lg w-[450px] hover:opacity-60"
                     onClick={() => {
-                      // alert(product._id);
                       navigate(`/productlist/productdetails/${product._id}`);
                     }}
-                    width="450px"
                     src={product.displayImage}
                     alt={product.name}
                   />
-                  <p
-                    style={{
-                      position: "absolute",
-                      top: "0px",
-                      background: "gray",
-                    }}
-                  >
+                  <p className="absolute top-[0px] bg-grey py-[2px] px-[6px] rounded-br-lg rounded-tl-lg">
                     PLUS_SIZE
                   </p>
-                  <div
-                    style={{ position: "absolute", bottom: "270px" }}
-                    className="flex"
-                  >
+                  <div className="absolute bottom-[270px] flex">
                     <StarIcon color="success" />
                     <div className="text-slate-400">
                       {product.ratings.toFixed(2)}
                     </div>
                   </div>
                   <p className="flex justify-between">
-                    <b>Bewakoof®</b> <FavoriteBorderIcon />
+                    <b>Bewakoof®</b>
+                    {/* <FavoriteBorderIcon /> */}
                   </p>
-                  <p>{product.name}</p>
+                  <div className="h-[60px]">
+                    <p>{product.name}</p>
+                  </div>
                   <p>{product.subCategory}</p>
                   <p>
                     <CurrencyRupeeIcon style={{ fontSize: "20px" }} />{" "}
@@ -238,8 +198,6 @@ export const ProductList = () => {
                     style={{
                       padding: "5px",
                       borderTop: "1px solid black",
-                      borderLeft: "1px solid black",
-                      borderRight: "1px solid black",
                       width: "100%",
                     }}
                   >
@@ -248,7 +206,9 @@ export const ProductList = () => {
                 </div>
               ))
             ) : (
-              <div>No Data Found</div>
+              <div className="text-center w-full bg-midnight text-white">
+                No Data Found
+              </div>
             )}
           </div>
         </div>

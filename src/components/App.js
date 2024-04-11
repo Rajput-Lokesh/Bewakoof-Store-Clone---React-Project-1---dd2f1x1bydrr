@@ -2,61 +2,59 @@ import "../styles/App.css";
 import NavBar from "../Pages/NavBar";
 import NavSubCat from "../Pages/NavSubCat";
 import { SingleProductCard } from "./SingleProductCard";
-import { useAuth, AuthProvider } from "../Providers/AuthProvider";
+import { AuthProvider } from "../Providers/AuthProvider";
 import { NotFound } from "../Pages/NotFound";
-
-import { Link, BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { Home } from "../Pages/Home";
-import { ToastContainer } from "react-toastify";
 import { ProductList } from "../Pages/ProductList";
-import { SubCategory } from "../Pages/SubCategory";
-
-import { PrimeReactProvider, PrimeReactContext } from "primereact/api";
 import { Login } from "../Pages/Login";
 import { Footer } from "../components/Footer";
 import { ProductDetails } from "../Pages/ProductDetails";
-
-// API_BASE_URL = "https://academics.newtonschool.co"
+import { WishList } from "./WishList";
+import { AddToCart } from "../Pages/AddToCart";
+import { Address } from "../Pages/Address";
+import { Register } from "../Pages/Register";
+import { PaymentProcess } from "../Pages/PaymentProces";
+import { ConfirmOrderPayment } from "../Pages/ConfirmOrderPayment";
+import { OrderConfirmGreetingPage } from "../Pages/OrderConfirmGreetingPage";
 
 function App() {
   return (
     <>
       <AuthProvider>
         <BrowserRouter>
-          {/* <ProductList /> */}
-          {/* <Login /> */}
           <NavBar />
           <NavSubCat />
-
           <Outlet />
 
           <Routes>
             <Route path="/products" element={<SingleProductCard />} />
             <Route path="/" element={<Home />} />
             <Route path="*" element={<NotFound />} />
-
+            <Route path="/WishList" element={<WishList />} />
+            <Route path="/addtocart" element={<AddToCart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/productlist" element={<ProductList />} />
-
+            <Route path="/address" element={<Address />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/paymentprocess" element={<PaymentProcess />} />
+            <Route
+              path="/paymentprocess/confirmorderpayment"
+              element={<ConfirmOrderPayment />}
+            />
+            <Route
+              path="/paymentprocess/confirmorderpayment/orderconfirmgreetingPage"
+              element={<OrderConfirmGreetingPage />}
+            />
             <Route
               path="/productlist/productdetails/:id"
               element={<ProductDetails />}
             />
-            {/* <Route path="/subCategory/:type" element={<SubCategory />} /> */}
             <Route
-              path="/subCategory/productdetails/:id"
+              path="/wishlist/productdetails/:id"
               element={<ProductDetails />}
             />
-
-            {/* <Route
-            path="/products/:ProductsDetails"
-            element={<ProductsDetails />}
-          /> */}
           </Routes>
-          {/* <Footer /> */}
-          {/* <Link to="/products">Single Product</Link> */}
-          <br />
-          {/* <Link to="/homepage"> Home </Link> */}
           {/* <Footer /> */}
         </BrowserRouter>
       </AuthProvider>
