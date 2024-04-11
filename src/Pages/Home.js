@@ -99,7 +99,8 @@ export const Home = () => {
           {afterSliderSmallCarousal.map((value) => (
             <li className="text-center ">
               <img
-                style={{ height: "300", width: "150px", margin: "15px" }}
+                className="w-[10rem] m-1"
+                // style={{ width: "150px", margin: "15px" }}
                 src={value}
               />
               <span className="text-lg text-gray-800">Best Sellers</span>

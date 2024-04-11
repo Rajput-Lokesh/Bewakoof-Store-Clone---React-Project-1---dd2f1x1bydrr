@@ -50,6 +50,13 @@ export const Address = () => {
         onSubmit={submitAddress}
       >
         <Form className="bg-white p-5 flex flex-col gap-2">
+          <div className="mx-auto ">
+            <img
+              className="cursor-pointer w-[100px] mr-[30px]"
+              src="https://www.investcorp.com/wp-content/uploads/2019/11/42_Bewakoof_Logo_Black.png"
+              alt="bewkoofLogo"
+            />
+          </div>
           <div className="">
             <label htmlFor="name">Full Name *</label>
             <Field

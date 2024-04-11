@@ -91,42 +91,20 @@ export const AddToCart = () => {
   return (
     <>
       <div className="relative top-[130px] ">
-        <h1 className="bg-bermuda text-center  mx-[130px]  text-xl font-bold text-white p-2 border">
+        <h1 className="bg-bewBtn text-center  mx-[130px]  text-xl font-bold text-white p-2 border">
           {/* MY BAG ----------- ADDRESS ----------- PAYMENT */}
           My Bag {cartItemCount} item and Total amount {totalAmmount} and
           Quantity of product {getProductQuntityInAddToCart}
         </h1>
 
         <div className="flex justify-center mx-[130px] gap-1  text-xl">
-          <div className=" w-3/4 bg-bewYellow items-center rounded-md p-3 my-2 flex justify-between">
-            <div className="card flex justify-content-center">
-              <Button
-                className="bg-bermuda px-5 py-1 rounded-lg"
-                label="Show"
-                icon="pi pi-external-link"
-                onClick={() => setVisible(true)}
-              />
-              <Dialog
-                height={"40vh"}
-                className="border bg-silver p-3 rounded-xl"
-                header="Add New Address"
-                visible={visible}
-                style={{ width: "50vw" }}
-                onHide={() => setVisible(false)}
-                // blockScroll={false}
-                // modal={false}
-              >
-                <Address />
-              </Dialog>
-            </div>
-          </div>
-          <div className=" w-1/2 bg-bewYellow rounded-md p-3 my-2 flex justify-between items-center">
+          <div className=" w-[100%] bg-bewYellow rounded-md p-3 my-2 flex justify-between items-center">
             <h1>Click here to clear cart {">>"}</h1>
             <button
-              className="bg-bermuda py-1 px-5 rounded-md  hover:bg-red"
+              className="bg-bewBtn text-white font-bold py-1 flex justify-between px-5 rounded-md  hover:text-black"
               onClick={deleteAllCartItems}
             >
-              <DeleteForeverIcon /> Clear Cart
+              <DeleteForeverIcon /> <p>Clear Cart</p>
             </button>
           </div>
         </div>
@@ -225,12 +203,10 @@ export const AddToCart = () => {
                 <p>Delivery Fee </p>
                 <p
                   className={`text-${
-                    totalAmmount > 2000 ? "green" : "white"
+                    totalAmmount > 2000 ? "green" : "metal"
                   } text-xl`}
                 >
-                  {totalAmmount > 2000
-                    ? "free"
-                    : "₹49 - to get delivery order shoud be above 2000"}
+                  {totalAmmount > 2000 ? "free" : "₹49 "}
                 </p>
               </div>
               <div className="flex justify-between mb-[15px]">
@@ -270,9 +246,13 @@ export const AddToCart = () => {
                   )}
                 </p>
               </div>
-              <Button onClick={() => navigate("/address")} variant="contained">
+
+              <button
+                className="bg-bewBtn text-white font-bold py-2 flex justify-between px-5 rounded-md  hover:text-black"
+                onClick={() => navigate("/address")}
+              >
                 ADD ADDRESS
-              </Button>
+              </button>
             </div>
             <div className="flex justify-between text-sm ">
               <div className=" flex flex-col justify-center items-center ">

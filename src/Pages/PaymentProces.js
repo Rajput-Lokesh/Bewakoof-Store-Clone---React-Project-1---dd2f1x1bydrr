@@ -36,7 +36,7 @@ export const PaymentProcess = () => {
           <div className="md:flex-col w-1/2 flex-wrap ">
             {cartItemList &&
               cartItemList.map((product) => (
-                <div className="md:flex-col shadow-md border  rounded-lg mb-2">
+                <div className="md:flex-col shadow-md   rounded-lg mb-2">
                   <div className="flex bg-silver p-[30px] justify-between">
                     <div>
                       <p className="text-2xl mb-3">{product.product.name}</p>
@@ -75,8 +75,9 @@ export const PaymentProcess = () => {
                     </div>
                   </div>
 
-                  <div className="md:flex gap-1 text-black justify-between p-[30px]">
+                  <div className="md:flex gap-1 bg-bewBtn  text-white font-bold justify-between p-[30px]">
                     <Button
+                      className="border px-4 py-1 rounded-md"
                       onClick={() => deleteCartItems(product.product._id)}
                       variant="outlined"
                       color="inherit"
@@ -85,6 +86,7 @@ export const PaymentProcess = () => {
                       REMOVE
                     </Button>
                     <Button
+                      className="border px-4 py-1 rounded-md"
                       onClick={() => {
                         addToWishList(product.product._id);
                         deleteCartItems(product.product._id);
@@ -117,12 +119,10 @@ export const PaymentProcess = () => {
                 <p>Delivery Fee </p>
                 <p
                   className={`text-${
-                    totalAmmount > 2000 ? "green" : "white"
+                    totalAmmount > 2000 ? "green" : "metal"
                   } text-xl`}
                 >
-                  {totalAmmount > 2000
-                    ? "free"
-                    : "₹49 - to get delivery order shoud be above 2000"}
+                  {totalAmmount > 2000 ? "free" : "₹49"}
                 </p>
               </div>
               <div className="flex justify-between mb-[15px]">
@@ -161,11 +161,7 @@ export const PaymentProcess = () => {
               </p>
             </div>
             <button
-              onClick={() =>
-                navigate(
-                  "/paymentprocess/confirmorderpayment/orderconfirmgreetingPage"
-                )
-              }
+              onClick={() => navigate("/paymentprocess/confirmorderpayment")}
               className="bg-bewBtn text-white font-bold  w-full p-3 rounded-b-md hover:text-black"
             >
               Checkout

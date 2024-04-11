@@ -31,6 +31,7 @@ module.exports = {
       red: "#FF0000",
       bewYellow: "#fdd835",
       bewBtn: "#42a2a2",
+      lightGrey: "#F7F7F7",
     },
   },
   plugins: [],
