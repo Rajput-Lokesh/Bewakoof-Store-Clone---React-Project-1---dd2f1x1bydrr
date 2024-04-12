@@ -123,7 +123,8 @@ export const ProductList = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "fail") {
-          navigate("*");
+          alert(data.message);
+          setError(data.message);
         }
         setProducts(data.data);
       })
@@ -145,13 +146,13 @@ export const ProductList = () => {
   return (
     <>
       {getError ? <div>{getError}</div> : null}
-      <div className=" flex justify-center w-full  mt-[7rem]">
+      <div className=" flex justify-center w-full  mt-[8rem]">
         <AsideFilters list={products} setList={setProducts} />
 
         <div className="w-[80%] sm:w-[100%]">
           <div className="flex flex-col flex-wrap md:flex-row items-center justify-evenly bg-slate-50 ">
             {products ? (
-              products.map((product, index) => (
+              products?.map((product, index) => (
                 <div
                   className="relative sm:w-[100%] md:max-w-[23%] max-w-[100%] max-h-full m-1 shadow-lg rounded-[20px] "
                   key={index}

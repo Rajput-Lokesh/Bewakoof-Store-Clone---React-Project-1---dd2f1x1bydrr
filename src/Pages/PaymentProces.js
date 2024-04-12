@@ -8,18 +8,33 @@ import { useNavigate } from "react-router-dom";
 
 export const PaymentProcess = () => {
   const navigate = useNavigate();
-  const { cartItemList, totalAmmount } = useAuth();
+  const {
+    cartItemList,
+    totalAmmount,
+    addToWishList,
+    deleteCartItem,
+    fetchCartItems,
+  } = useAuth();
+  const userDetails = JSON.parse(localStorage.getItem("userAddressDetails"));
+  console.log(userDetails);
 
   return (
-    <div className="absolute top-[6rem] container mx-auto mt-10">
+    <div className=" mt-[6rem] container mx-auto ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="border rounded-md p-4">
+        <div className="border text-slate-600  rounded-md p-4">
           <h2 className="text-xl font-semibold mb-4">Delivery Address</h2>
-          {/* Delivery Address Details */}
+          <h3>{userDetails.area}</h3>
+          <h3>{userDetails.landmark}</h3>
+          <h3>{userDetails.city}</h3>
+          <h3>{userDetails.state}</h3>
+          <h3>{userDetails.country}</h3>
+          <h3>{userDetails.addressType}</h3>
         </div>
-        <div className="border rounded-md p-4">
+        <div className="border  text-slate-600 rounded-md p-4">
           <h2 className="text-xl font-semibold mb-4">Contact Info</h2>
-          {/* Contact Info Details */}
+          <h1>{userDetails.name}</h1>
+          <h2>Mobile : +91-{userDetails.phone}</h2>
+          <h2>Zip code : {userDetails.zipCode}</h2>
         </div>
       </div>
 
@@ -69,7 +84,10 @@ export const PaymentProcess = () => {
                 <div className="bg-gray-200 flex justify-between p-4">
                   <Button
                     className="text-white bg-[#42a2a2] border px-4 py-1 rounded-md"
-                    onClick={() => deleteCartItems(product.product._id)}
+                    onClick={() => {
+                      deleteCartItem(product.product._id);
+                      fetchCartItems();
+                    }}
                     variant="outlined"
                     color="inherit"
                     startIcon={<DeleteForeverOutlinedIcon />}
@@ -80,7 +98,8 @@ export const PaymentProcess = () => {
                     className="text-white bg-[#42a2a2] border px-4 py-1 rounded-md"
                     onClick={() => {
                       addToWishList(product.product._id);
-                      deleteCartItems(product.product._id);
+                      deleteCartItem(product.product._id);
+                      fetchCartItems();
                     }}
                     variant="outlined"
                     color="inherit"

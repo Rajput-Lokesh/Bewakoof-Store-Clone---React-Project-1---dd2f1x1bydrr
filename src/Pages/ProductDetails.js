@@ -119,11 +119,13 @@ export function ProductDetails() {
           },
         }
       );
+      console.log(response.data.message);
 
       if (!response.ok) {
         fetchReviews();
         setUserReview("");
         setSelectRating(1);
+        alert(response.data.message);
       }
     } catch (error) {
       console.log("Error:", error);
@@ -144,6 +146,7 @@ export function ProductDetails() {
 
       if (!response.ok) {
         fetchReviews();
+        alert("Review deleted successfully");
       }
     } catch (error) {
       console.log("Error:", error);
@@ -151,7 +154,7 @@ export function ProductDetails() {
   };
 
   return (
-    <div className="container absolute top-[6rem] mx-auto p-4">
+    <div className="container  mt-[6rem] mx-auto p-4">
       {productDetails && (
         <div className="flex flex-col md:flex-row justify-around items-start gap-8">
           <div className="flex flex-col items-center   gap-4">

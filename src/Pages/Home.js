@@ -6,6 +6,7 @@ import StarIcon from "@mui/icons-material/Star";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "../components/Footer";
 import {
   bestDealsResponsiveOptions,
   responsiveOptions,
@@ -50,7 +51,7 @@ export const Home = () => {
   const bestSellerProTemplate = (product) => {
     return (
       <>
-        <div className="relative w-fit m-2">
+        <div className=" w-fit m-2">
           <img
             onClick={() => {
               navigate(`/productlist/productdetails/${product._id}`);
@@ -83,7 +84,7 @@ export const Home = () => {
 
   return (
     <>
-      <div className=" w-full top-[110px] bg-white z-[1]">
+      <div className=" w-full mt-[110px] bg-white z-[1]">
         {/* Home Page Main Corousel start */}
         <Carousel
           value={getSliderImageObject}
@@ -173,6 +174,7 @@ export const Home = () => {
         {/* Banner Image 4 */}
         <img src={bannerImgs[3]} className="w-full my-1" />
       </div>
+      <Footer />
     </>
   );
 };

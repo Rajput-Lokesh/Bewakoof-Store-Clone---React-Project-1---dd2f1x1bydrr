@@ -7,7 +7,7 @@ export const ConfirmOrderPayment = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="container mx-auto absolute top-[8rem] px-4">
+    <div className="container mx-auto  mt-[8rem] px-4">
       <h1 className="text-2xl font-bold mb-6">Choose Your Payment Mode</h1>
       <div className="flex flex-col md:flex-row gap-4">
         <div className="w-full md:w-2/3 border rounded-lg border-gray-300 p-4">

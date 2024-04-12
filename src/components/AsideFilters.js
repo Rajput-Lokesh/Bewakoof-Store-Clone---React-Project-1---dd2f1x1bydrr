@@ -9,9 +9,11 @@ import {
   LogoutIcon,
   MoodIcon,
 } from "@mui/icons-material";
+import { useAuth } from "../Providers/AuthProvider";
 
 export const AsideFilters = ({ setList, list }) => {
   console.log("Inside Asise => ", list);
+  const { setGender } = useAuth();
 
   const [products, setProducts] = useState([]);
   const [activeDescription, setActiveDescription] = useState(null);
@@ -27,7 +29,10 @@ export const AsideFilters = ({ setList, list }) => {
     // Constructing the API URL based on selected filters
     const filter = {};
     if (selectedSize) filter.size = selectedSize;
-    if (selectedGender) filter.gender = selectedGender;
+    if (selectedGender) {
+      setGender(selectedGender);
+      filter.gender = selectedGender;
+    }
     if (searchByCategoryFilter) filter.subCategory = searchByCategoryFilter;
     if (getSellerTag) filter.sellerTag = getSellerTag;
 
@@ -35,23 +40,7 @@ export const AsideFilters = ({ setList, list }) => {
       filter
     )}`;
 
-    fetch(searchApi, {
-      headers: {
-        projectId: "gar9pityowqx",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "success") {
-          setList(data.data);
-        } else {
-          alert(`${data.message}`);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-        setError(error);
-      });
+    fetchProducts(searchApi);
   }, [selectedSize, selectedGender, searchByCategoryFilter, getSellerTag]);
 
   const handleSizeChange = (event) => {
@@ -65,19 +54,12 @@ export const AsideFilters = ({ setList, list }) => {
   const handleSubCategoryChange = (event) => {
     setSearchByCategoryFilter(event.target.value);
   };
+
   const handleSellerTag = (event) => {
     setSellerTag(event.target.value);
   };
-  const handlerSortChange = (event) => {
-    const sort = {};
-    setSelectedSort(event.target.value);
-    if (selectedSort) {
-      sort.price = selectedSort;
-    }
-    const searchApi = `https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?sort=${JSON.stringify(
-      sort
-    )}`;
 
+  const fetchProducts = (searchApi) => {
     fetch(searchApi, {
       headers: {
         projectId: "gar9pityowqx",
@@ -97,34 +79,33 @@ export const AsideFilters = ({ setList, list }) => {
       });
   };
 
+  const handlerSortChange = (event) => {
+    const sort = {};
+    const newSort = event.target.value;
+    setSelectedSort(newSort);
+    if (newSort) {
+      sort.price = newSort;
+    }
+    const searchApi = `https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?sort=${JSON.stringify(
+      sort
+    )}`;
+
+    fetchProducts(searchApi);
+  };
+
   const handleRatingChange = (event) => {
-    setSelectedRating(event.target.value);
     const ratings = {};
-    if (selectedRating) {
-      ratings.ratings = selectedRating;
+    const newRating = +event.target.value;
+    setSelectedRating(newRating);
+    if (newRating) {
+      ratings.ratings = newRating;
     }
 
     const searchApi = `https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?sort=${JSON.stringify(
       ratings
     )}`;
 
-    fetch(searchApi, {
-      headers: {
-        projectId: "gar9pityowqx",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "success") {
-          setList(data.data);
-        } else {
-          alert(`${data.message}`);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-        setError(error);
-      });
+    fetchProducts(searchApi);
   };
 
   return (

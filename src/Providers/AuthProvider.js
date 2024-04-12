@@ -83,17 +83,19 @@ export const AuthProvider = ({ children }) => {
           },
         }
       );
-      console.log(response);
 
       if (response.data.status === "success") {
         setWishListItems(response.data.data.items);
         setWishListCount(response.data.results);
+        alert(response.data.message);
         toast.success("Product Added successfully!");
       } else {
         console.log(response.data.message);
         toast.error(`${response.data.message}`);
       }
     } catch (err) {
+      console.log("Catch Block");
+      alert(err.response.data.message);
       console.log("Error shows ", err);
     }
   };
@@ -119,6 +121,7 @@ export const AuthProvider = ({ children }) => {
         if (response.data.status === "success") {
           // setCartItemCount(response.data.results);
           setCartItemList(response.data.items);
+          alert(response.data.message);
         }
       }
     } catch (err) {
@@ -147,9 +150,28 @@ export const AuthProvider = ({ children }) => {
     fetchCartItems();
   }, [cartItemToggle]);
 
+  const deleteCartItem = async (id) => {
+    try {
+      const response = await axios.delete(
+        `https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`,
+
+        {
+          headers: {
+            projectID: "gar9pityowqx",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   let object = {
     API_BASE_URL,
     totalAmmount,
+    deleteCartItem,
     setTotalAmmount,
     fetchWishList,
     getSearchProdct,

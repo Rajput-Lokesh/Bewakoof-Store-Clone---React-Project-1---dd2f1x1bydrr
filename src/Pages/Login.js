@@ -60,7 +60,7 @@ export const Login = () => {
 
   return (
     <>
-      <div className="absolute top-[8rem] flex flex-col md:flex-row justify-center md:w-full mt-10">
+      <div className=" mt-[8rem] flex flex-col md:flex-row justify-center md:w-full ">
         <div className="w-full md:w-1/2">
           <h1 className="text-3xl font-bold my-1 text-center">
             Welcome to the world of Bewakoof®!

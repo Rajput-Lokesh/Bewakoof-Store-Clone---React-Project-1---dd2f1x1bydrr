@@ -73,26 +73,27 @@ const NavBar = () => {
             />
           </NavLink>
 
-          <ol className="flex gap-[20px] list-none">
-            <li
-              className="cursor-pointer"
+          <div className="flex gap-[20px] list-none">
+            <NavLink
+              to="/productlist"
+              className=" cursor-pointer"
               onClick={() => {
                 setGender("Men");
-                navigate("/productlist");
               }}
             >
               Men
-            </li>
-            <li
-              className="cursor-pointer"
+            </NavLink>
+
+            <NavLink
+              to="/productlist"
+              className=" cursor-pointer"
               onClick={() => {
                 setGender("Women");
-                navigate("/productlist");
               }}
             >
               Women
-            </li>
-          </ol>
+            </NavLink>
+          </div>
         </div>
 
         <div className="flex">
@@ -147,7 +148,7 @@ const NavBar = () => {
 
                         <button
                           onClick={logOutHandler}
-                          className="block w-full text-left px-3 py-2 font-bold hover:bg-black hover:text-white "
+                          className="block w-full  px-3 py-2 font-bold hover:bg-black hover:text-white "
                           role="menuitem"
                         >
                           <LogoutIcon /> Logout

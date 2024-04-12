@@ -13,12 +13,16 @@ export const Address = () => {
       .min(10, "Phone number must be at least 10 characters")
       .max(10, "Phone number cannot exceed 10 characters")
       .required("Phone number is required"),
-    zipCode: Yup.string().required("Zip code is required"),
+    zipCode: Yup.string()
+      .required()
+      .matches(/^[0-9]+$/, "Must be only digits")
+      .min(6, "Must be exactly 6 digits")
+      .max(6, "Must be exactly 6 digits"),
     country: Yup.string(),
-    state: Yup.string(),
-    city: Yup.string(),
-    landmark: Yup.string(),
-    area: Yup.string(),
+    state: Yup.string().required("State is required"),
+    city: Yup.string().required("City is required"),
+    landmark: Yup.string().required("Landmark is required"),
+    area: Yup.string().required("Area is required"),
     addressType: Yup.string().required("Address type is required"),
   });
 
@@ -28,7 +32,7 @@ export const Address = () => {
     zipCode: "",
     country: "",
     state: "",
-    city: "",
+    city: "India",
     landmark: "",
     area: "",
     addressType: "",
@@ -73,7 +77,7 @@ export const Address = () => {
           </div>
 
           <div className="">
-            <label htmlFor="phone"> Mobile Number </label>
+            <label htmlFor="phone"> Mobile Number *</label>
             <Field
               className="border w-full p-1 rounded-md"
               id="phone"
@@ -119,7 +123,7 @@ export const Address = () => {
             </div>
 
             <div className="">
-              <label htmlFor="state">State</label>
+              <label htmlFor="state">State *</label>
               <Field
                 className="border w-full p-1 rounded-md"
                 id="state"
@@ -135,7 +139,7 @@ export const Address = () => {
           </div>
 
           <div className="">
-            <label htmlFor="city">city</label>
+            <label htmlFor="city">city *</label>
             <Field
               className="border w-full p-1 rounded-md"
               id="city"
@@ -150,7 +154,7 @@ export const Address = () => {
           </div>
 
           <div className="">
-            <label htmlFor="landmark">Landmark</label>
+            <label htmlFor="landmark">Landmark *</label>
             <Field
               className="border w-full p-1 rounded-md"
               id="landmark"
@@ -165,7 +169,7 @@ export const Address = () => {
           </div>
 
           <div className="">
-            <label htmlFor="area">Area / Locality</label>
+            <label htmlFor="area">Area / Locality *</label>
             <Field
               className="border w-full p-1 rounded-md"
               id="area"

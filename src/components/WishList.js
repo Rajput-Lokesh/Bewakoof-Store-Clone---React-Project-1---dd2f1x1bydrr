@@ -33,7 +33,7 @@ export const WishList = () => {
   return (
     <>
       {" "}
-      <div className="relative top-[130px]">
+      <div className=" mt-[130px]">
         <div className="flex bg-silver justify-between px-5 py-1">
           <h1
             className={`flex justify-center text-2xl  flex-wrap gap-4  ${
@@ -49,12 +49,14 @@ export const WishList = () => {
               : "Please Login to View Your Wishlist...!"}
             {}
           </h1>
-          <button
-            className="bg-[#42a2a2] text-white font-bold py-2 flex justify-between px-5 rounded-md  hover:text-black"
-            onClick={deleteAllWishListItems}
-          >
-            Clear Wishlist
-          </button>
+          {wishListCount ? (
+            <button
+              className="bg-[#42a2a2] text-white font-bold py-2 flex justify-between px-5 rounded-md  hover:text-black"
+              onClick={deleteAllWishListItems}
+            >
+              Clear Wishlist
+            </button>
+          ) : null}
         </div>
         <div className="flex flex-wrap gap-1 mt-4 justify-center ">
           {wishlistItems.map((product) => (
