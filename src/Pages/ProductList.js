@@ -145,7 +145,7 @@ export const ProductList = () => {
   return (
     <>
       {getError ? <div>{getError}</div> : null}
-      <div className=" flex justify-center w-full absolute top-[8rem]">
+      <div className=" flex justify-center w-full  mt-[7rem]">
         <AsideFilters list={products} setList={setProducts} />
 
         <div className="w-[80%] sm:w-[100%]">

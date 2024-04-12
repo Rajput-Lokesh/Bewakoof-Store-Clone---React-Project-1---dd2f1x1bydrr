@@ -95,7 +95,9 @@ function App() {
             />
           </Routes>
         </Suspense>
-        {/* <Footer /> */}
+        <div>
+          <Footer />
+        </div>
       </BrowserRouter>
     </AuthProvider>
   );

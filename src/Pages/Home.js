@@ -83,7 +83,7 @@ export const Home = () => {
 
   return (
     <>
-      <div className="absolute w-full top-[110px] bg-white z-[1]">
+      <div className=" w-full top-[110px] bg-white z-[1]">
         {/* Home Page Main Corousel start */}
         <Carousel
           value={getSliderImageObject}
