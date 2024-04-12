@@ -145,32 +145,31 @@ export const ProductList = () => {
   return (
     <>
       {getError ? <div>{getError}</div> : null}
-      <div className="flex" style={{ position: "absolute", top: "100px" }}>
+      <div className=" flex justify-center w-full absolute top-[8rem]">
         <AsideFilters list={products} setList={setProducts} />
 
-        <div className="w-[80%]">
-          <div className="flex   flex-wrap justify-around bg-slate-700 p-4 ">
+        <div className="w-[80%] sm:w-[100%]">
+          <div className="flex flex-col flex-wrap md:flex-row items-center justify-evenly bg-slate-50 ">
             {products ? (
               products.map((product, index) => (
-                // <SingleProductCard product={product} />
                 <div
-                  className="relative max-w-[23%] max-h-full m-1 shadow-lg rounded-[20px]"
+                  className="relative sm:w-[100%] md:max-w-[23%] max-w-[100%] max-h-full m-1 shadow-lg rounded-[20px] "
                   key={index}
                 >
                   <img
-                    className="cursor-pointer rounded-t-lg w-[450px] hover:opacity-60"
+                    className="cursor-pointer rounded-t-lg w-[100%] hover:opacity-60"
                     onClick={() => {
                       navigate(`/productlist/productdetails/${product._id}`);
                     }}
                     src={product.displayImage}
                     alt={product.name}
                   />
-                  <p className="absolute top-[0px] bg-grey py-[2px] px-[6px] rounded-br-lg rounded-tl-lg">
+                  <p className="absolute top-[0px] bg-slate-500 py-[2px] px-[6px] rounded-br-lg rounded-tl-lg">
                     PLUS_SIZE
                   </p>
-                  <div className="absolute bottom-[270px] flex">
-                    <StarIcon color="success" />
-                    <div className="text-slate-400">
+                  <div className="absolute bottom-[13rem] flex">
+                    <StarIcon className="text-amber-500" />
+                    <div className="text-slate-100">
                       {product.ratings.toFixed(2)}
                     </div>
                   </div>
@@ -178,10 +177,12 @@ export const ProductList = () => {
                     <b>Bewakoof®</b>
                     {/* <FavoriteBorderIcon /> */}
                   </p>
-                  <div className="h-[60px]">
+                  <div className="h-[3rem]">
                     <p>{product.name}</p>
                   </div>
-                  <p>{product.subCategory}</p>
+                  <p className="text-slate-500">
+                    Category : {product.subCategory}
+                  </p>
                   <p>
                     <CurrencyRupeeIcon style={{ fontSize: "20px" }} />{" "}
                     {product.price}{" "}
@@ -189,7 +190,7 @@ export const ProductList = () => {
                       {product.price * 2}
                     </span>
                   </p>
-                  <button className="border rounded-md bg-bermuda text-white my-1 p-1">
+                  <button className="border rounded-md bg-sky-300 text-white my-1 p-1">
                     <CurrencyRupeeIcon style={{ fontSize: "20px" }} />{" "}
                     {product.price - 50}
                     {" for tribe members"}
@@ -206,8 +207,11 @@ export const ProductList = () => {
                 </div>
               ))
             ) : (
-              <div className="text-center w-full bg-midnight text-white">
-                No Data Found
+              <div className="text-center w-full bg-midnight text-white p-4 rounded-lg shadow-md">
+                <p className="text-lg">No Products Found</p>
+                <p className="text-sm mt-2">
+                  Please try again later or refine your search criteria.
+                </p>
               </div>
             )}
           </div>

@@ -50,7 +50,7 @@ export const WishList = () => {
             {}
           </h1>
           <button
-            className="bg-bewBtn text-white font-bold py-2 flex justify-between px-5 rounded-md  hover:text-black"
+            className="bg-[#42a2a2] text-white font-bold py-2 flex justify-between px-5 rounded-md  hover:text-black"
             onClick={deleteAllWishListItems}
           >
             Clear Wishlist

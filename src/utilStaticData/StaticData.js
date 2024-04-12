@@ -5,17 +5,41 @@ export const API_BASE_URL = `https://academics.newtonschool.co`;
 export const responsiveOptions = [
   {
     breakpoint: "1400px",
-    numVisible: 2,
+    numVisible: 3,
     numScroll: 1,
   },
   {
     breakpoint: "1199px",
-    numVisible: 3,
+    numVisible: 2,
     numScroll: 1,
   },
   {
     breakpoint: "767px",
     numVisible: 2,
+    numScroll: 1,
+  },
+  {
+    breakpoint: "575px",
+    numVisible: 1,
+    numScroll: 1,
+  },
+];
+
+// best deals break points
+export const bestDealsResponsiveOptions = [
+  {
+    breakpoint: "1400px",
+    numVisible: 5,
+    numScroll: 1,
+  },
+  {
+    breakpoint: "1199px",
+    numVisible: 4,
+    numScroll: 1,
+  },
+  {
+    breakpoint: "767px",
+    numVisible: 3,
     numScroll: 1,
   },
   {

@@ -7,6 +7,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {
+  bestDealsResponsiveOptions,
   responsiveOptions,
   getSliderImageObject,
   bannerImgs,
@@ -65,12 +66,14 @@ export const Home = () => {
             <b>Bewakoof®</b> <FavoriteBorderIcon />
           </p>
 
-          <p>{product.name}</p>
-          <p>{product.subCategory}</p>
+          <div className="h-[3rem]">
+            <p>{product.name}</p>
+          </div>
+          <p className="text-slate-500">Category : {product.subCategory}</p>
           <p>
             <CurrencyRupeeIcon style={{ fontSize: "20px" }} /> {product.price}
           </p>
-          <button className="p-1 border border-black border-b-0  m-1 rounded-md w-full">
+          <button className="p-1 border bg-[#42a2a2] border-black border-b-0  m-1 rounded-md w-full">
             VICOUS RYAN
           </button>
         </div>
@@ -99,7 +102,7 @@ export const Home = () => {
           {afterSliderSmallCarousal.map((value) => (
             <li className="text-center ">
               <img
-                className="w-[10rem] m-1"
+                className="w-[8rem] m-1"
                 // style={{ width: "150px", margin: "15px" }}
                 src={value}
               />
@@ -140,7 +143,7 @@ export const Home = () => {
             value={getProduct}
             numVisible={5}
             numScroll={1}
-            responsiveOptions={responsiveOptions}
+            responsiveOptions={bestDealsResponsiveOptions}
             className="custom-carousel"
             circular
             autoplayInterval={3000}

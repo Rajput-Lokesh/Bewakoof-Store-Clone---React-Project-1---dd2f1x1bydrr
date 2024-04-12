@@ -60,28 +60,28 @@ export const Login = () => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-center md:w-full mt-[150px] ">
-        <div className=" w-1/2">
-          <h1 className="text-3xl font-bold my-1">
+      <div className="absolute top-[8rem] flex flex-col md:flex-row justify-center md:w-full mt-10">
+        <div className="w-full md:w-1/2">
+          <h1 className="text-3xl font-bold my-1 text-center">
             Welcome to the world of Bewakoof®!
           </h1>
           <img
-            className="h-screen w-full"
+            className="h-auto w-full md:w-4/5 mx-auto"
             src="https://images.bewakoof.com/web/group-19-1617704502.png"
             alt="Bewakoof"
           />
         </div>
-        <div className=" w-1/3">
-          <form className="leading-8 flex flex-col justify-center my-[200px]">
+        <div className="w-full md:w-1/3">
+          <form className="leading-8 flex flex-col justify-center my-10 md:my-0">
             <h1 className="text-3xl font-bold text-center my-4">
               Login / Sign up
             </h1>
-            <h2 className=" text-2xl text-center opacity-[50%] font-bold">
+            <h2 className="text-2xl text-center opacity-50 font-bold">
               For Latest trends, exciting offers and everything Bewakoof®!
             </h2>
 
             <div className="leading-8">
-              <label className="text-xl">Email </label>
+              <label className="text-xl">Email</label>
               <input
                 name="email"
                 onChange={onChangeHandler}
@@ -93,25 +93,18 @@ export const Login = () => {
               />
             </div>
             <div className="leading-8">
-              <label className="text-xl">Password </label>
+              <label className="text-xl">Password</label>
               <input
                 name="password"
                 onChange={onChangeHandler}
                 value={data.password}
                 required
                 className="border w-full p-2 rounded-md"
-                placeholder="Enter your password "
+                placeholder="Enter your password"
                 type="password"
               />
             </div>
             <div className="flex flex-col justify-center items-center ">
-              {/* <Button
-                    onClick={forgotToggle}
-                    className="w-full m-[10px]"
-                    variant="contained"
-                  >
-                    Forgot Password
-                  </Button> */}
               <Button
                 onClick={submitLoginDetails}
                 className="w-full p-2"
@@ -122,9 +115,9 @@ export const Login = () => {
               <div>or</div>
               <Button
                 onClick={() => {
-                  setIsOpenSign(false);
+                  navigate("/register");
                 }}
-                className="w-full p-3 "
+                className="w-full p-3"
                 variant="contained"
               >
                 Create Account

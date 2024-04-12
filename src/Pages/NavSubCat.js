@@ -30,7 +30,7 @@ const NavCat = () => {
 
   return (
     <div>
-      <nav className="flex fixed w-full top-[80px] bg-white z-30 justify-evenly items-center py-[5px] px-[100px] border-b-[2px]">
+      <nav className="flex fixed w-full top-[80px] bg-slate-50  z-30 justify-evenly items-center py-[5px] px-[100px] border-b-[2px]">
         {getCategories.map((catName, index) => (
           <p
             className="cursor-pointer"

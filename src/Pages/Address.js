@@ -11,7 +11,7 @@ export const Address = () => {
       .matches(/^\d+$/, "Invalid phone number")
 
       .min(10, "Phone number must be at least 10 characters")
-      .max(10, "Phone number cannot exceed 15 characters")
+      .max(10, "Phone number cannot exceed 10 characters")
       .required("Phone number is required"),
     zipCode: Yup.string().required("Zip code is required"),
     country: Yup.string(),
@@ -43,13 +43,13 @@ export const Address = () => {
   };
 
   return (
-    <div className="absolute w-full top-[100px] border p-[30px] bg-silver flex flex-col justify-center items-center ">
+    <div className="absolute w-full top-[100px] border p-[30px] bg-slate-300 flex flex-col justify-center items-center ">
       <Formik
         initialValues={initialValues}
         validationSchema={addressValidationSchema}
         onSubmit={submitAddress}
       >
-        <Form className="bg-white p-5 flex flex-col gap-2">
+        <Form className="bg-white p-5 flex flex-col gap-2 rounded-lg shadow-md">
           <div className="mx-auto ">
             <img
               className="cursor-pointer w-[100px] mr-[30px]"
@@ -66,7 +66,7 @@ export const Address = () => {
               placeholder="Enter Name..."
             />
             <ErrorMessage
-              className="text-red text-center"
+              className="text-red-600 text-center"
               name="name"
               component="div"
             />
@@ -81,7 +81,7 @@ export const Address = () => {
               placeholder="Enter Mobile Number..."
             />
             <ErrorMessage
-              className="text-red text-center"
+              className="text-red-600 text-center"
               name="phone"
               component="div"
             />
@@ -96,7 +96,7 @@ export const Address = () => {
               placeholder="Enter Zip Code..."
             />
             <ErrorMessage
-              className="text-red text-center"
+              className="text-red-600 text-center"
               name="zipCode"
               component="div"
             />
@@ -112,7 +112,7 @@ export const Address = () => {
                 placeholder="Enter Country..."
               />
               <ErrorMessage
-                className="text-red text-center"
+                className="text-red-600 text-center"
                 name="country"
                 component="div"
               />
@@ -127,7 +127,7 @@ export const Address = () => {
                 placeholder="Enter State"
               />
               <ErrorMessage
-                className="text-red text-center"
+                className="text-red-600 text-center"
                 name="state"
                 component="div"
               />
@@ -143,7 +143,7 @@ export const Address = () => {
               placeholder="Enter city"
             />
             <ErrorMessage
-              className="text-red text-center"
+              className="text-red-600 text-center"
               name="city"
               component="div"
             />
@@ -158,7 +158,7 @@ export const Address = () => {
               placeholder="Landmark (Optional)"
             />
             <ErrorMessage
-              className="text-red text-center"
+              className="text-red-600 text-center"
               name="landmark"
               component="div"
             />
@@ -173,7 +173,7 @@ export const Address = () => {
               placeholder="Area / Locality"
             />
             <ErrorMessage
-              className="text-red text-center"
+              className="text-red-600  text-center"
               name="area"
               component="div"
             />
@@ -218,7 +218,7 @@ export const Address = () => {
           </div>
 
           <button
-            className="bg-bewBtn text-white font-bold w-full p-3  rounded-lg text-xl "
+            className="text-white bg-[#42a2a2] font-bold w-full p-3  rounded-lg text-xl "
             type="submit"
           >
             Add Address

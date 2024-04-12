@@ -1,30 +1,69 @@
-import "../styles/App.css";
+import React, { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { AuthProvider } from "../Providers/AuthProvider";
 import NavBar from "../Pages/NavBar";
 import NavSubCat from "../Pages/NavSubCat";
-import { SingleProductCard } from "./SingleProductCard";
-import { AuthProvider } from "../Providers/AuthProvider";
 import { NotFound } from "../Pages/NotFound";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import { Home } from "../Pages/Home";
-import { ProductList } from "../Pages/ProductList";
-import { Login } from "../Pages/Login";
 import { Footer } from "../components/Footer";
-import { ProductDetails } from "../Pages/ProductDetails";
-import { WishList } from "./WishList";
-import { AddToCart } from "../Pages/AddToCart";
-import { Address } from "../Pages/Address";
-import { Register } from "../Pages/Register";
-import { PaymentProcess } from "../Pages/PaymentProces";
-import { ConfirmOrderPayment } from "../Pages/ConfirmOrderPayment";
-import { OrderConfirmGreetingPage } from "../Pages/OrderConfirmGreetingPage";
+
+// Lazy load components
+const SingleProductCard = lazy(() =>
+  import("./SingleProductCard").then((module) => ({
+    default: module.SingleProductCard,
+  }))
+);
+const Home = lazy(() =>
+  import("../Pages/Home").then((module) => ({ default: module.Home }))
+);
+const Login = lazy(() =>
+  import("../Pages/Login").then((module) => ({ default: module.Login }))
+);
+const ProductList = lazy(() =>
+  import("../Pages/ProductList").then((module) => ({
+    default: module.ProductList,
+  }))
+);
+const WishList = lazy(() =>
+  import("./WishList").then((module) => ({ default: module.WishList }))
+);
+const AddToCart = lazy(() =>
+  import("../Pages/AddToCart").then((module) => ({ default: module.AddToCart }))
+);
+const Address = lazy(() =>
+  import("../Pages/Address").then((module) => ({ default: module.Address }))
+);
+const Register = lazy(() =>
+  import("../Pages/Register").then((module) => ({ default: module.Register }))
+);
+const PaymentProcess = lazy(() =>
+  import("../Pages/PaymentProces").then((module) => ({
+    default: module.PaymentProcess,
+  }))
+);
+const ConfirmOrderPayment = lazy(() =>
+  import("../Pages/ConfirmOrderPayment").then((module) => ({
+    default: module.ConfirmOrderPayment,
+  }))
+);
+const OrderConfirmGreetingPage = lazy(() =>
+  import("../Pages/OrderConfirmGreetingPage").then((module) => ({
+    default: module.OrderConfirmGreetingPage,
+  }))
+);
+const ProductDetails = lazy(() =>
+  import("../Pages/ProductDetails").then((module) => ({
+    default: module.ProductDetails,
+  }))
+);
 
 function App() {
   return (
-    <>
-      <AuthProvider>
-        <BrowserRouter>
-          <NavBar />
-          <NavSubCat />
+    <AuthProvider>
+      <BrowserRouter>
+        <NavBar />
+        <NavSubCat />
+
+        <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
 
           <Routes>
@@ -55,10 +94,11 @@ function App() {
               element={<ProductDetails />}
             />
           </Routes>
-          {/* <Footer /> */}
-        </BrowserRouter>
-      </AuthProvider>
-    </>
+        </Suspense>
+
+        {/* <Footer /> */}
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

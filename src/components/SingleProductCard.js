@@ -90,7 +90,7 @@ export const SingleProductCard = (product) => {
             deleteWishListItems(product.product.products._id);
             fetchCartItems();
           }}
-          className="border rounded-md mx-1 bg-bermuda text-white my-1 p-1"
+          className="border rounded-md mx-1 bg-[#42a2a2] text-white my-1 p-1"
         >
           Move To Bag
         </button>

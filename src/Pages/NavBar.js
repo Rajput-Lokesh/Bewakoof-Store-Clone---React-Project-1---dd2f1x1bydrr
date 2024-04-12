@@ -63,7 +63,7 @@ const NavBar = () => {
   }
   return (
     <>
-      <nav className="flex justify-between items-center px-[100px] py-[5px] fixed w-full top-[0px] bg-white z-40 border-b-[2px]">
+      <nav className="flex justify-between items-center px-[100px] py-[5px] fixed w-full top-[0px] bg-slate-50  z-40 border-b-[2px]">
         <div style={{ display: "flex" }}>
           <NavLink to="/">
             <img
@@ -107,7 +107,7 @@ const NavBar = () => {
           </div>
 
           <div className="flex justify-center items-center gap-1">
-            <div className="relative inline-block   px-3 text-left">
+            <div className="relative inline-block  px-3 text-left">
               <div className="inline-flex rounded-md ">
                 <button
                   type="button"
@@ -115,7 +115,7 @@ const NavBar = () => {
                   onClick={() => setShowOptions(!showOptions)}
                 >
                   {getName ? (
-                    <p className="text-grey flex gap-1 shadow-md py-1 px-4 rounded bg-silver">
+                    <p className="text-grey flex gap-1 shadow-md py-1 px-4 rounded bg-slate-50">
                       <MoodIcon /> {getName}
                     </p>
                   ) : (
@@ -130,11 +130,11 @@ const NavBar = () => {
               {showOptions && (
                 <div
                   onMouseLeave={() => setShowOptions(false)}
-                  className="absolute z-40 mt-[10px] text-sm w-[150px] rounded-md shadow-l bg-grey text-silver"
+                  className="absolute z-40 mt-[10px] text-sm w-[150px] rounded-md shadow-l bg-slate-200 text-black"
                   aria-orientation="vertical"
                   aria-labelledby="options-menu"
                 >
-                  <div className="py-1" role="none">
+                  <div className="py-1 " role="none">
                     {getName ? (
                       <>
                         <Link
@@ -147,7 +147,7 @@ const NavBar = () => {
 
                         <button
                           onClick={logOutHandler}
-                          className="block px-3 py-2 font-bold hover:bg-black hover:text-white "
+                          className="block w-full text-left px-3 py-2 font-bold hover:bg-black hover:text-white "
                           role="menuitem"
                         >
                           <LogoutIcon /> Logout

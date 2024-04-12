@@ -46,19 +46,20 @@ export const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen mt-[150px]">
-      <div className="w-1/2">
-        <h1 className="text-3xl font-bold my-1">
+    <div className="mt-[6rem] flex flex-col md:flex-row justify-center items-center h-screen">
+      <div className="w-full md:w-1/2">
+        <h1 className="text-3xl font-bold my-1 text-center">
           Welcome to the world of Bewakoof®!
         </h1>
         <img
-          className="h-screen w-full"
+          className="h-auto w-full md:w-4/5 mx-auto"
           src="https://images.bewakoof.com/web/group-19-1617704502.png"
           alt="Bewakoof"
         />
       </div>
-      <div className="w-1/3">
-        <form className="flex flex-col justify-center my-8">
+
+      <div className="w-full md:w-1/3">
+        <form className="flex flex-col justify-center my-8 mx-4 md:mx-0">
           <h1 className="text-3xl font-bold text-center my-4">
             Create An Account
           </h1>
@@ -121,10 +122,10 @@ export const Register = () => {
 
           {error && <p className="text-red-500">{error}</p>}
 
-          <div className="flex flex-col gap-2    justify-center items-center mt-5">
+          <div className="flex flex-col gap-2 justify-center items-center mt-5">
             <Button
               type="submit"
-              className="w-full p-3 "
+              className="w-full p-3"
               variant="contained"
               onClick={submitCreateAccountDetails}
             >
