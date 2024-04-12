@@ -95,7 +95,6 @@ function App() {
             />
           </Routes>
         </Suspense>
-
         {/* <Footer /> */}
       </BrowserRouter>
     </AuthProvider>

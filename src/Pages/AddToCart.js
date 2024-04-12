@@ -201,7 +201,7 @@ export const AddToCart = () => {
               <p>
                 ₹
                 {totalAmmount -
-                  cartItemList.reduce(
+                  cartItemList?.reduce(
                     (totalDiscount, item) =>
                       totalDiscount + item.product.price * 0.75,
                     0
@@ -212,7 +212,7 @@ export const AddToCart = () => {
               <p>Sub Total</p>
               <p>
                 ₹{" "}
-                {cartItemList.reduce(
+                {cartItemList?.reduce(
                   (totalDiscount, item) =>
                     totalDiscount + item.product.price * 0.75,
                   0
@@ -226,7 +226,7 @@ export const AddToCart = () => {
               <p>Total</p>
               <p className="text-bold text-2xl">
                 ₹
-                {cartItemList.reduce(
+                {cartItemList?.reduce(
                   (totalDiscount, item) =>
                     totalDiscount + item.product.price * 0.75,
                   0

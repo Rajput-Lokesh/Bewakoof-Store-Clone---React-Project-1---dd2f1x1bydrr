@@ -14,7 +14,7 @@ import { useAuth } from "../Providers/AuthProvider";
 export function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToWishList, addToCart } = useAuth();
+  const { addToWishList, addToCart, fetchCartItems } = useAuth();
 
   const [getSize, setSize] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -275,13 +275,16 @@ export function ProductDetails() {
             <div className="flex gap-1">
               <Button
                 onClick={() => {
-                  if (!isAddedToBag && quantity && getSize) {
-                    addToCart(productDetails._id, quantity, getSize);
-                    setIsAddedToBag(true);
-                  } else if (quantity && getSize) {
-                    navigate("/addtocart");
-                  } else {
+                  if (!quantity || !getSize) {
                     alert("Please select quantity and size to add to cart!");
+                  } else if (!localStorage.getItem("token")) {
+                    alert("Login first");
+                  } else if (!isAddedToBag) {
+                    addToCart(productDetails._id, quantity, getSize);
+                    fetchCartItems();
+                    setIsAddedToBag(true);
+                  } else {
+                    navigate("/addtocart");
                   }
                 }}
                 variant="outlined"
@@ -291,6 +294,7 @@ export function ProductDetails() {
                   ? "GO TO BAG"
                   : "ADD TO BAG"}
               </Button>
+
               <Button
                 onClick={() => {
                   if (localStorage.getItem("token")) {
