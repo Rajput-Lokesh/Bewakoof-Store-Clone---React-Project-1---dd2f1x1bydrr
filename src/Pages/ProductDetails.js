@@ -122,6 +122,8 @@ export function ProductDetails() {
 
       if (!response.ok) {
         fetchReviews();
+        setUserReview("");
+        setSelectRating(1);
       }
     } catch (error) {
       console.log("Error:", error);
@@ -135,7 +137,7 @@ export function ProductDetails() {
         {
           headers: {
             projectId: "gar9pityowqx",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -153,14 +155,14 @@ export function ProductDetails() {
       {productDetails && (
         <div className="flex flex-col md:flex-row justify-around items-start gap-8">
           <div className="flex flex-col items-center   gap-4">
-            <div className="flex gap-1">
+            <div className="flex gap-1 ">
               <button className="w-[4rem]" onClick={handlePrevImg}>
                 <ArrowCircleLeftTwoToneIcon
-                  className="text-sky-500"
+                  className="text-sky-500 hover:text-slate-900"
                   fontSize="large"
                 />
               </button>
-              <div className="flex ">
+              <div className="flex">
                 {productDetails.images.map((img, index) => (
                   <img
                     key={index}
@@ -175,11 +177,12 @@ export function ProductDetails() {
               </div>
               <button className="" onClick={handleNextImg}>
                 <ArrowCircleRightTwoToneIcon
-                  className="text-sky-500"
+                  className="text-sky-500 hover:text-slate-900"
                   fontSize="large"
                 />
               </button>
             </div>
+
             <div>
               <img
                 src={productDetails.images[currentImg]}
@@ -290,7 +293,11 @@ export function ProductDetails() {
               </Button>
               <Button
                 onClick={() => {
-                  addToWishList(productDetails._id);
+                  if (localStorage.getItem("token")) {
+                    addToWishList(productDetails._id);
+                  } else {
+                    alert("Please Log in first.!");
+                  }
                 }}
                 variant="contained"
                 startIcon={<FavoriteBorderIcon />}
@@ -357,9 +364,25 @@ export function ProductDetails() {
               {getProductReview.map((pro) => (
                 <div className="border-b-1  shadow-lg mt-4 p-1 bg-white">
                   <h1 className="text-xl">{pro.text}</h1>
-                  <h4 className="text-metal opacity-60">
-                    Rating : {pro.ratings}
-                  </h4>
+                  <div className="flex items-center">
+                    <h4 className="text-metal opacity-60">Rating :</h4>
+                    <div className="flex ml-2">
+                      {[...Array(pro.ratings)].map((_, index) => (
+                        <svg
+                          key={index}
+                          className="h-6 w-6 fill-current text-amber-500"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 1l2.94 6.41L19 7.35l-5.65 5.43L15.88 19 10 15.47 4.12 19l1.53-6.22L1 7.35l6.06.06L10 1z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
                   <button
                     className="border-metal border rounded-md hover:text-black hover:font-bold text-metal px-2 py-1 my-1"
                     onClick={() => {

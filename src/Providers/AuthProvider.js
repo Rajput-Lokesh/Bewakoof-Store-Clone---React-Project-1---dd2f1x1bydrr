@@ -83,6 +83,7 @@ export const AuthProvider = ({ children }) => {
           },
         }
       );
+      console.log(response);
 
       if (response.data.status === "success") {
         setWishListItems(response.data.data.items);
