@@ -20,6 +20,7 @@ const NavBar = () => {
   const {
     setSearchProduct,
     setGender,
+    getGender,
     getToken,
     getName,
     NameHandler,
@@ -31,6 +32,8 @@ const NavBar = () => {
     cartItemCount,
   } = useAuth();
 
+  console.log("Inside nav");
+  console.log(cartItemCount);
   const inputHandler = (e) => {
     setSearchProduct(e.target.value.trim());
     navigate("/productlist");
@@ -63,7 +66,7 @@ const NavBar = () => {
   }
   return (
     <>
-      <nav className="flex justify-between items-center px-[100px] py-[5px] fixed w-full top-[0px] bg-slate-50  z-40 border-b-[2px]">
+      <nav className="flex justify-between items-center px-[100px] py-[5px] fixed w-full top-[0px] bg-slate-50  z-40 border-b-[2px] ">
         <div style={{ display: "flex" }}>
           <NavLink to="/">
             <img
@@ -81,17 +84,33 @@ const NavBar = () => {
                 setGender("Men");
               }}
             >
-              Men
+              <p
+                className={
+                  getGender === "Men"
+                    ? "text-slate-900 font-bold   "
+                    : "text-slate-500"
+                }
+              >
+                Men
+              </p>
             </NavLink>
 
             <NavLink
               to="/productlist"
-              className=" cursor-pointer"
+              className=" cursor-pointer "
               onClick={() => {
                 setGender("Women");
               }}
             >
-              Women
+              <p
+                className={
+                  getGender === "Women"
+                    ? "text-slate-900 font-bold   "
+                    : "text-slate-500"
+                }
+              >
+                Women
+              </p>
             </NavLink>
           </div>
         </div>
@@ -190,7 +209,7 @@ const NavBar = () => {
 
               <p className="font-bold text-green">
                 {localStorage.getItem("token") ? (
-                  <sup>{`${cartItemCount}`}</sup>
+                  <sup>{cartItemCount ? cartItemCount : null}</sup>
                 ) : null}
               </p>
             </div>

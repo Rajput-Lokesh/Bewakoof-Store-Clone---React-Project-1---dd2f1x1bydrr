@@ -12,8 +12,8 @@ import {
 import { useAuth } from "../Providers/AuthProvider";
 
 export const AsideFilters = ({ setList, list }) => {
-  console.log("Inside Asise => ", list);
-  const { setGender } = useAuth();
+  const { setGender, getGender, getCategories, setCategories } = useAuth();
+  console.log(getGender, getCategories);
 
   const [products, setProducts] = useState([]);
   const [activeDescription, setActiveDescription] = useState(null);
@@ -32,6 +32,24 @@ export const AsideFilters = ({ setList, list }) => {
     if (selectedGender) {
       setGender(selectedGender);
       filter.gender = selectedGender;
+      if (getGender === "Men") {
+        const menCat = [
+          "hoodie",
+          "jeans",
+          "jogger",
+          "kurta",
+          "pyjamas",
+          "shirt",
+          "shorts",
+          "sweater",
+          "tracksuit",
+          "trouser",
+        ];
+        setCategories(menCat);
+      } else if (getGender === "Women") {
+        const womenCat = ["jeans", "jogger", "jumpsuit", "kurti", "shirt"];
+        setCategories(womenCat);
+      }
     }
     if (searchByCategoryFilter) filter.subCategory = searchByCategoryFilter;
     if (getSellerTag) filter.sellerTag = getSellerTag;
@@ -145,11 +163,8 @@ export const AsideFilters = ({ setList, list }) => {
               className="w-full px-4 py-2 rounded-lg bg-gray-200"
             >
               <option value="">--Select Rating--</option>
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
+              <option value={-1}>Low to High</option>
+              <option value={1}>High to Low</option>
             </select>
           </div>
 
@@ -182,13 +197,15 @@ export const AsideFilters = ({ setList, list }) => {
             >
               Sort By Gender
             </label>
+
             <select
               id="genderSelect"
               value={selectedGender}
               onChange={handleGenderChange}
               className="w-full px-4 py-2 rounded-lg bg-gray-200"
             >
-              <option value="">--Select Gender--</option>
+              <option defaultValue={getGender}>{getGender}</option>
+
               <option value="Men">MEN</option>
               <option value="Women">WOMEN</option>
             </select>
@@ -208,10 +225,9 @@ export const AsideFilters = ({ setList, list }) => {
               className="w-full px-4 py-2 rounded-lg bg-gray-200"
             >
               <option value="">--Select Category--</option>
-              <option value="tshirt">Tshirt</option>
-              <option value="shirt">Shirt</option>
-              <option value="hoodie">Hoodie</option>
-              <option value="jumpsuit">Jumpsuit</option>
+              {getCategories?.map((cat) => (
+                <option value={cat}>{cat}</option>
+              ))}{" "}
             </select>
           </div>
 

@@ -31,6 +31,8 @@ export const AuthProvider = ({ children }) => {
   const [getGender, setGender] = useState("Men");
   const [getSearchProdct, setSearchProduct] = useState("");
 
+  const [getCategories, setCategories] = useState([]);
+
   const [getProductQuntityInAddToCart, setProductQuantityInAddToCart] =
     useState(0);
 
@@ -121,6 +123,7 @@ export const AuthProvider = ({ children }) => {
         if (response.data.status === "success") {
           // setCartItemCount(response.data.results);
           setCartItemList(response.data.items);
+          setCartItemCount(response.results);
           alert(response.data.message);
         }
       }
@@ -128,6 +131,35 @@ export const AuthProvider = ({ children }) => {
       console.log("Error Shows ", err);
     }
   };
+
+  const deleteWishListItems = async (id) => {
+    try {
+      const response = await axios.delete(
+        `https://academics.newtonschool.co/api/v1/ecommerce/wishlist/${id}`,
+        {
+          headers: {
+            projectID: "gar9pityowqx",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.data.status === "success") {
+        // setCartItemToggle(!cartItemToggle);
+        setWishListCount(response.data.results);
+        setWishListItems(response.data.data.items);
+        localStorage.setItem("wishListCount", response.data.results);
+        localStorage.setItem(
+          "wishList",
+          JSON.stringify(response.data.data.items)
+        );
+        alert(response.data.message);
+      }
+      // setwishListToggle(!wishListToggle);
+    } catch (err) {
+      console.log("Error shows ", err);
+    }
+  };
+
   const fetchCartItems = async () => {
     try {
       const response = await axios.get(
@@ -148,7 +180,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     fetchCartItems();
-  }, [cartItemToggle]);
+  }, [cartItemCount]);
 
   const deleteCartItem = async (id) => {
     try {
@@ -181,8 +213,11 @@ export const AuthProvider = ({ children }) => {
     setWishListCount,
     cartItemCount,
     setCartItemCount,
+    deleteWishListItems,
     storageData,
     setStorageData,
+    getCategories,
+    setCategories,
     cartItemList,
     setCartItemList,
     getGender,

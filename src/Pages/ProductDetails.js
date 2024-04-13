@@ -9,13 +9,22 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import ArrowCircleLeftTwoToneIcon from "@mui/icons-material/ArrowCircleLeftTwoTone";
 import ArrowCircleRightTwoToneIcon from "@mui/icons-material/ArrowCircleRightTwoTone";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useAuth } from "../Providers/AuthProvider";
 
 export function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToWishList, addToCart, fetchCartItems } = useAuth();
+  const {
+    addToWishList,
+    addToCart,
+    fetchCartItems,
+    deleteWishListItems,
+    wishlistItems,
+    getName,
+  } = useAuth();
 
+  const [isAddedFav, setAddedFav] = useState(false);
   const [getSize, setSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [isAddedToBag, setIsAddedToBag] = useState(false);
@@ -27,6 +36,7 @@ export function ProductDetails() {
   const [getProductReview, setProductReviews] = useState([]);
   const [selectRating, setSelectRating] = useState(1);
   const [getUserReview, setUserReview] = useState("");
+  const [userIdReview, setUserIdReview] = useState("");
 
   useEffect(() => {
     fetchIdDetails();
@@ -119,9 +129,12 @@ export function ProductDetails() {
           },
         }
       );
+
       console.log(response.data.message);
 
       if (!response.ok) {
+        setUserIdReview(response.data.data.user);
+
         fetchReviews();
         setUserReview("");
         setSelectRating(1);
@@ -132,21 +145,25 @@ export function ProductDetails() {
     }
   };
 
-  const deleteReview = async (reviewId) => {
+  const deleteReview = async (reviewId, user) => {
     try {
-      const response = await axios.delete(
-        `https://academics.newtonschool.co/api/v1/ecommerce/review/${reviewId}`,
-        {
-          headers: {
-            projectId: "gar9pityowqx",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      if (userIdReview === user) {
+        const response = await axios.delete(
+          `https://academics.newtonschool.co/api/v1/ecommerce/review/${reviewId}`,
+          {
+            headers: {
+              projectId: "gar9pityowqx",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
 
-      if (!response.ok) {
-        fetchReviews();
-        alert("Review deleted successfully");
+        if (!response.ok) {
+          fetchReviews();
+          alert("Review deleted successfully");
+        }
+      } else {
+        alert("ohhh...!! So, Sorry ,You can not delete other user reviews..!");
       }
     } catch (error) {
       console.log("Error:", error);
@@ -282,6 +299,7 @@ export function ProductDetails() {
                     alert("Please select quantity and size to add to cart!");
                   } else if (!localStorage.getItem("token")) {
                     alert("Login first");
+                    navigate("/login");
                   } else if (!isAddedToBag) {
                     addToCart(productDetails._id, quantity, getSize);
                     fetchCartItems();
@@ -301,15 +319,22 @@ export function ProductDetails() {
               <Button
                 onClick={() => {
                   if (localStorage.getItem("token")) {
-                    addToWishList(productDetails._id);
+                    if (!isAddedFav) {
+                      addToWishList(productDetails._id);
+                    } else {
+                      deleteWishListItems(productDetails._id);
+                    }
+                    setAddedFav(!isAddedFav);
                   } else {
-                    alert("Please Log in first.!");
+                    alert("Please log in first!");
                   }
                 }}
                 variant="contained"
-                startIcon={<FavoriteBorderIcon />}
+                startIcon={
+                  isAddedFav ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                }
               >
-                ADD TO WISHLIST
+                {isAddedFav ? "RMOVE FROM WISHLIST" : `ADD TO WISHLIST`}
               </Button>
             </div>
             <div className="flex justify-between text-metal text-xl hover:text-grey ">
@@ -335,35 +360,37 @@ export function ProductDetails() {
 
               {/* Other description sections */}
             </dl>
-            <div className="bg-slate-300  p-2 flex gap-2 flex-col justify-center rounded-md">
-              <input
-                placeholder="Write your review here..."
-                className="border w-full p-2 rounded-lg h-[100px]"
-                value={getUserReview}
-                onChange={handleReviewTextChange}
-              />
-              <div className="text-center">
-                <label htmlFor="selectRating">Select Rating</label>
-                <select
-                  id="selectRating"
-                  value={selectRating}
-                  onChange={handleRating}
+            {localStorage.getItem("token") ? (
+              <div className="bg-slate-300  p-2 flex gap-2 flex-col justify-center rounded-md">
+                <input
+                  placeholder="Write your review here..."
+                  className="border w-full p-2 rounded-lg h-[100px]"
+                  value={getUserReview}
+                  onChange={handleReviewTextChange}
+                />
+                <div className="text-center">
+                  <label htmlFor="selectRating">Select Rating</label>
+                  <select
+                    id="selectRating"
+                    value={selectRating}
+                    onChange={handleRating}
+                  >
+                    <option value="">--Select Rating--</option>
+                    <option value={1}>1 Star</option>
+                    <option value={2}>2 Star</option>
+                    <option value={3}>3 Star</option>
+                    <option value={4}>4 Star</option>
+                    <option value={5}>5 Star</option>
+                  </select>
+                </div>
+                <Button
+                  variant="contained"
+                  onClick={() => postReview(productDetails._id)}
                 >
-                  <option value="">--Select Rating--</option>
-                  <option value={1}>1 Star</option>
-                  <option value={2}>2 Star</option>
-                  <option value={3}>3 Star</option>
-                  <option value={4}>4 Star</option>
-                  <option value={5}>5 Star</option>
-                </select>
+                  Submit Review
+                </Button>
               </div>
-              <Button
-                variant="contained"
-                onClick={() => postReview(productDetails._id)}
-              >
-                Submit Review
-              </Button>
-            </div>
+            ) : null}
             <div className="shadow-lg rounded-lg p-3">
               <h1 className="text-3xl font-bold text-center ">
                 --Product Reviews--
@@ -390,10 +417,20 @@ export function ProductDetails() {
                       ))}
                     </div>
                   </div>
+                  <div>
+                    {userIdReview === pro.user
+                      ? `User : ${getName} ,you can delete this review only `
+                      : null}
+                  </div>
+                  <div>userId : {pro.user}</div>
                   <button
                     className="border-metal border rounded-md hover:text-black hover:font-bold text-metal px-2 py-1 my-1"
                     onClick={() => {
-                      deleteReview(pro._id);
+                      if (localStorage.getItem("token")) {
+                        deleteReview(pro._id, pro.user);
+                      } else {
+                        alert("Please log in first");
+                      }
                     }}
                   >
                     Delete review

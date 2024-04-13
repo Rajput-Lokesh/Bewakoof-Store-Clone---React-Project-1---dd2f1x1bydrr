@@ -30,9 +30,9 @@ export const Address = () => {
     name: "",
     phone: "",
     zipCode: "",
-    country: "",
+    country: "India",
     state: "",
-    city: "India",
+    city: "",
     landmark: "",
     area: "",
     addressType: "",
@@ -47,7 +47,7 @@ export const Address = () => {
   };
 
   return (
-    <div className="absolute w-full top-[100px] border p-[30px] bg-slate-300 flex flex-col justify-center items-center ">
+    <div className=" w-full mt-[6rem]  border p-[30px] bg-slate-300 flex flex-col justify-center items-center ">
       <Formik
         initialValues={initialValues}
         validationSchema={addressValidationSchema}

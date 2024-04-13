@@ -15,36 +15,9 @@ export const SingleProductCard = (product) => {
     addToCart,
     fetchCartItems,
     fetchWishList,
+    deleteWishListItems,
   } = useAuth();
   const navigate = useNavigate();
-
-  const deleteWishListItems = async (id) => {
-    try {
-      const response = await axios.delete(
-        `https://academics.newtonschool.co/api/v1/ecommerce/wishlist/${id}`,
-        {
-          headers: {
-            projectID: "gar9pityowqx",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (response.data.status === "success") {
-        // setCartItemToggle(!cartItemToggle);
-        setWishListCount(response.data.results);
-        setWishListItems(response.data.data.items);
-        localStorage.setItem("wishListCount", response.data.results);
-        localStorage.setItem(
-          "wishList",
-          JSON.stringify(response.data.data.items)
-        );
-        console.log("Wish List Count => ", wishListCount);
-      }
-      // setwishListToggle(!wishListToggle);
-    } catch (err) {
-      console.log("Error shows ", err);
-    }
-  };
 
   return (
     <>
@@ -62,7 +35,10 @@ export const SingleProductCard = (product) => {
           PLUS_SIZE
         </p>
         <button
-          onClick={() => deleteWishListItems(product.product.products._id)}
+          onClick={() => {
+            deleteWishListItems(product.product.products._id);
+            fetchCartItems();
+          }}
           className="w-[30px] m-1 h-[30px] absolute top-[0px] right-[0px] border  bg-grey rounded-full flex justify-center items-center hover:bg-white "
         >
           X

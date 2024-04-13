@@ -3,26 +3,56 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Providers/AuthProvider";
 
 const NavCat = () => {
-  const [getCategories, setCategories] = useState([]);
-  const { API_BASE_URL } = useAuth();
+  const { API_BASE_URL, getGender, getCategories, setCategories } = useAuth();
   let navigate = useNavigate();
 
   const catUrl = `${API_BASE_URL}/api/v1/ecommerce/clothes/categories`;
 
+  const handleInitailSetGender = () => {
+    if (getGender === "Men") {
+      const menCat = [
+        "hoodie",
+        "jeans",
+        "jogger",
+        "kurta",
+        "pyjamas",
+        "shirt",
+        "shorts",
+        "sweater",
+        "tracksuit",
+        "trouser",
+      ];
+      setCategories(menCat);
+    } else if (getGender === "Women") {
+      const womenCat = ["jeans", "jogger", "jumpsuit", "kurti", "shirt"];
+      setCategories(womenCat);
+    }
+  };
   useEffect(() => {
-    fetch(catUrl, {
-      headers: {
-        projectId: "gar9pityowqx",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCategories(data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
+    handleInitailSetGender();
   }, []);
+
+  useEffect(() => {
+    handleInitailSetGender();
+    // fetch(catUrl, {
+    //   headers: {
+    //     projectId: "gar9pityowqx",
+    //   },
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setCategories(data.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching products:", error);
+    //   });
+  }, [getGender]);
+  // console.log("Inside sub navbar");
+  // console.log(getCategories);
+  // console.log(getGender);
+
+  //
+  //
 
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
@@ -39,10 +69,10 @@ const NavCat = () => {
     <div>
       <div>
         {/* Navbar for larger devices */}
-        <nav className="flex fixed w-full top-[70px] bg-white z-30 justify-between items-center py-2 px-4 border-b-2">
+        <nav className="flex fixed w-full   top-[70px] bg-white z-30 justify-around items-center py-2 px-4 border-b-2">
           {getCategories.map((catName, index) => (
             <p
-              className="cursor-pointer text-lg text-gray-700 hover:text-black"
+              className="cursor-pointer text-lg text-black-700 hover:text-slate-400"
               key={index}
               onClick={() => {
                 navi(catName);
@@ -54,17 +84,17 @@ const NavCat = () => {
         </nav>
 
         {/* Dropdown navbar for smaller devices */}
-        <nav className="flex md:hidden fixed w-full top-[70px] bg-white z-30 justify-center items-center py-2 px-4 border-b-2">
+        <nav className="flex  md:hidden fixed w-full top-[70px] bg-red z-30 justify-center items-center py-2 px-4 border-b-2">
           <select
-            className="outline-none"
+            className="outline-none w-full text-center"
             onChange={handleCategoryChange}
             defaultValue=""
           >
-            <option value="" disabled>
+            <option className="w-1/2" value="" disabled>
               -- Select Category --
             </option>
             {getCategories.map((catName, index) => (
-              <option value={catName} key={index}>
+              <option className="w-1/2" value={catName} key={index}>
                 {catName.toUpperCase()}
               </option>
             ))}
