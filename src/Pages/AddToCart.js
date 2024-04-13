@@ -20,6 +20,7 @@ export const AddToCart = () => {
     getProductQuntityInAddToCart,
     addToWishList,
     totalAmmount,
+    deleteAllCartItems,
     addToCart,
     fetchWishList,
     fetchCartItems,
@@ -46,27 +47,6 @@ export const AddToCart = () => {
           },
         }
       );
-      if (response.status === 200) {
-        fetchCartItems();
-        alert(response.data.message);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const deleteAllCartItems = async () => {
-    try {
-      const response = await axios.delete(
-        `https://academics.newtonschool.co/api/v1/ecommerce/cart/`,
-        {
-          headers: {
-            projectID: "gar9pityowqx",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
       if (response.status === 200) {
         fetchCartItems();
         alert(response.data.message);

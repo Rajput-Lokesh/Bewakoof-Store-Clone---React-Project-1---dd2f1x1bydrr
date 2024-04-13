@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   // Wishlist / addtocart list states end
 
-  const [getGender, setGender] = useState("Men");
+  const [getGender, setGender] = useState("");
   const [getSearchProdct, setSearchProduct] = useState("");
 
   const [getCategories, setCategories] = useState([]);
@@ -182,6 +182,27 @@ export const AuthProvider = ({ children }) => {
     fetchCartItems();
   }, [cartItemCount]);
 
+  const deleteAllCartItems = async () => {
+    try {
+      const response = await axios.delete(
+        `https://academics.newtonschool.co/api/v1/ecommerce/cart/`,
+        {
+          headers: {
+            projectID: "gar9pityowqx",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        fetchCartItems();
+        alert(response.data.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const deleteCartItem = async (id) => {
     try {
       const response = await axios.delete(
@@ -216,6 +237,7 @@ export const AuthProvider = ({ children }) => {
     deleteWishListItems,
     storageData,
     setStorageData,
+    deleteAllCartItems,
     getCategories,
     setCategories,
     cartItemList,

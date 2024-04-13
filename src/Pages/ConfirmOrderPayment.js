@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../Providers/AuthProvider";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 
 export const ConfirmOrderPayment = () => {
   const navigate = useNavigate();
-  const { cartItemList, totalAmmount } = useAuth();
+  const { cartItemList, totalAmmount, deleteAllCartItems } = useAuth();
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const cardValidationSchema = Yup.object({
@@ -30,6 +31,7 @@ export const ConfirmOrderPayment = () => {
 
   const handleSubmit = (values) => {
     console.log(values); // You can handle form submission here
+    deleteAllCartItems();
     navigate("/paymentprocess/confirmorderpayment/orderconfirmgreetingPage");
   };
 
@@ -177,11 +179,16 @@ export const ConfirmOrderPayment = () => {
         </Formik>
 
         <div className="w-full md:w-1/3 border-l-0 md:border-l border-gray-300 p-4">
-          <h2 className="text-lg font-semibold mb-4">Order Summary:</h2>
+          <h2 className="text-lg font-semibold bg-slate-600 p-1 text-white mb-4">
+            Order Summary :
+          </h2>
           <div className="mb-4">
-            {cartItemList.map((item) => (
+            {cartItemList.map((item, index) => (
               <div key={item.id} className="flex justify-between mb-2">
-                <p>{item.product.name}</p>
+                <p>
+                  {<RadioButtonCheckedIcon color="success" />}{" "}
+                  {item.product.name}
+                </p>
                 <p>₹{item.product.price * 0.75}</p>
               </div>
             ))}

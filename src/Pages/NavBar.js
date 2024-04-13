@@ -150,7 +150,7 @@ const NavBar = () => {
               {showOptions && (
                 <div
                   onMouseLeave={() => setShowOptions(false)}
-                  className="absolute z-40 mt-[10px] text-sm w-[150px] rounded-md shadow-l bg-slate-200 text-black"
+                  className="absolute z-40 mt-[10px] text-sm w-[180px] rounded-md shadow-l bg-slate-200 text-black"
                   aria-orientation="vertical"
                   aria-labelledby="options-menu"
                 >
@@ -167,7 +167,7 @@ const NavBar = () => {
 
                         <button
                           onClick={logOutHandler}
-                          className="block w-full  px-3 py-2 font-bold hover:bg-black hover:text-white "
+                          className="block w-full text-left  px-3 py-2 font-bold hover:bg-black hover:text-white "
                           role="menuitem"
                         >
                           <LogoutIcon /> Logout
