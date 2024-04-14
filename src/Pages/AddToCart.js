@@ -252,6 +252,7 @@ export const AddToCart = () => {
               </div>
             </div>
           </div>
+
           <div className="mx-[120px]">
             <h1 className="text-xl m-[20px] font-bold">
               Want to add more from your wishlist..

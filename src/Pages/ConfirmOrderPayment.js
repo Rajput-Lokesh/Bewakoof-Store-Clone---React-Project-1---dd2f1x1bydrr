@@ -80,6 +80,7 @@ export const ConfirmOrderPayment = () => {
 
                 <div className="flex items-center">
                   <Field
+                    placeholder="id must be contain '@' ,'.'"
                     type="radio"
                     id="upi"
                     name="paymentMethod"
@@ -169,8 +170,11 @@ export const ConfirmOrderPayment = () => {
 
               <button
                 type="submit"
-                className="bg-blue-500 text-white font-bold py-3 px-6 rounded-full mt-6 w-full hover:bg-blue-600"
-                disabled={isSubmitting}
+                className={`py-3 px-6 rounded-full mt-6 w-full font-bold hover:bg-blue-600 ${
+                  paymentMethod
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-400 text-white"
+                }`}
               >
                 Confirm Payment
               </button>
@@ -199,7 +203,9 @@ export const ConfirmOrderPayment = () => {
           </div>
           <div className="flex justify-between border-t border-gray-400 pt-2">
             <p>Delivery Fee</p>
-            <p>{totalAmmount > 2000 ? "free" : "₹49"}</p>
+            <p>
+              {totalAmmount === 0 ? "-" : totalAmmount > 2000 ? "free" : "₹49"}
+            </p>
           </div>
           <div className="flex justify-between border-t border-gray-400 pt-2">
             <p>Bag Discount</p>

@@ -11,9 +11,9 @@ export const Login = () => {
   const { NameHandler, TokenHandler, fetchWishList, fetchCartItems } =
     useAuth();
   const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
+    name: "Lokesh",
+    email: "lokesh123@gmail.com",
+    password: "12345",
     // phone: "",
     appType: "ecommerce",
   });

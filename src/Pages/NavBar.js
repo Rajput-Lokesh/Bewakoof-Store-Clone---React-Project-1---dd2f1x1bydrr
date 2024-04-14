@@ -13,9 +13,15 @@ import { Navigate, NavLink, useNavigate, Link } from "react-router-dom";
 import React from "react";
 import { useAuth } from "../Providers/AuthProvider";
 import MoodIcon from "@mui/icons-material/Mood";
+import { NavCat } from "../Pages/NavSubCat";
 
 const NavBar = () => {
   const [showOptions, setShowOptions] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
   const navigate = useNavigate();
   const {
     setSearchProduct,
@@ -66,11 +72,11 @@ const NavBar = () => {
   }
   return (
     <>
-      <nav className="flex justify-between items-center px-[100px] py-[5px] fixed w-full top-[0px] bg-slate-50  z-40 border-b-[2px] ">
+      <nav className="flex justify-between items-center px-[10px] md:px-[100px] py-[5px] fixed w-full top-[0px] bg-slate-50  z-40 border-b-[2px] ">
         <div style={{ display: "flex" }}>
           <NavLink to="/">
             <img
-              className="cursor-pointer w-[100px] mr-[30px]"
+              className="cursor-pointer w-[100px] mr-[30px] hidden  md:block"
               src="https://www.investcorp.com/wp-content/uploads/2019/11/42_Bewakoof_Logo_Black.png"
               alt="bewkoofLogo"
             />
@@ -116,14 +122,25 @@ const NavBar = () => {
         </div>
 
         <div className="flex">
-          <div className="hide flex  items-center border h-10 w-full m-1 max-w-md px-2 rounded-md ">
-            <input
-              type="text"
-              onChange={inputHandler}
-              placeholder="search by products or collection"
-              className="w-[300px] bg-transparent outline-none border-none px-3 placeholder:text-sm text-black m-1"
-            />
-            <SearchOutlinedIcon className="text-black text-2xl" />
+          <div className="flex items-center border h-10 w-full m-1 max-w-md px-2 rounded-md">
+            {expanded && (
+              <input
+                type="text"
+                onChange={inputHandler}
+                placeholder="Search..."
+                className="flex-grow bg-transparent outline-none border-none px-3 placeholder:text-sm text-black m-1 w-1/3 md:w-full"
+              />
+            )}
+            {!expanded && (
+              <img
+                className="cursor-pointer w-[100px] mr-[30px]  md:hidden"
+                src="https://www.investcorp.com/wp-content/uploads/2019/11/42_Bewakoof_Logo_Black.png"
+                alt="bewkoofLogo"
+              />
+            )}
+            <div className="cursor-pointer" onClick={toggleExpand}>
+              <SearchOutlinedIcon className="text-black text-2xl" />
+            </div>
           </div>
 
           <div className="flex justify-center items-center gap-1">
@@ -135,8 +152,9 @@ const NavBar = () => {
                   onClick={() => setShowOptions(!showOptions)}
                 >
                   {getName ? (
-                    <p className="text-grey flex gap-1 shadow-md py-1 px-4 rounded bg-slate-50">
-                      <MoodIcon /> {getName}
+                    <p className="text-grey flex gap-1 shadow-md py-1  md:px-4 rounded bg-slate-50">
+                      <MoodIcon />
+                      <p className="hidden md:block">{getName}</p>
                     </p>
                   ) : (
                     <div>
@@ -216,6 +234,7 @@ const NavBar = () => {
           </div>
         </div>
       </nav>
+      <NavCat />
     </>
   );
 };

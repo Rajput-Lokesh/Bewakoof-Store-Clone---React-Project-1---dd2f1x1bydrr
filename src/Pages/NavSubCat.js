@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Providers/AuthProvider";
 
-const NavCat = () => {
+export const NavCat = () => {
   const { API_BASE_URL, getGender, getCategories, setCategories } = useAuth();
   let navigate = useNavigate();
 
@@ -104,5 +104,3 @@ const NavCat = () => {
     </div>
   );
 };
-
-export default NavCat;

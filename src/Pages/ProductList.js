@@ -14,7 +14,6 @@ export const ProductList = () => {
   const { API_BASE_URL, getSearchProdct, getGender, setGender } = useAuth();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [getError, setError] = useState(null);
 
   const [searchParams] = useSearchParams();
   const subCategory = searchParams.get("type");
@@ -45,7 +44,6 @@ export const ProductList = () => {
       setPage((prevPage) => prevPage + 1); // Update page here
     } catch (error) {
       console.error("Error fetching data:", error);
-      setError("Error fetching data. Please try again.");
     } finally {
       setIsFetching(false);
     }
@@ -99,7 +97,6 @@ export const ProductList = () => {
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
-        setError(error);
       });
   }, [getSearchProdct]);
 
@@ -124,7 +121,6 @@ export const ProductList = () => {
       .then((data) => {
         if (data.status === "fail") {
           alert(data.message);
-          setError(data.message);
         }
         setProducts(data.data);
       })
@@ -145,7 +141,6 @@ export const ProductList = () => {
 
   return (
     <>
-      {getError ? <div>{getError}</div> : null}
       <div className=" flex justify-center w-full  mt-[8rem]">
         <AsideFilters list={products} setList={setProducts} />
 
@@ -158,7 +153,7 @@ export const ProductList = () => {
                   key={index}
                 >
                   <img
-                    className="cursor-pointer rounded-t-lg w-[100%] hover:opacity-60"
+                    className="transition-transform duration-300 hover:scale-105 cursor-pointer rounded-t-lg w-[100%] "
                     onClick={() => {
                       navigate(`/productlist/productdetails/${product._id}`);
                     }}

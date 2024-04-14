@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { AuthProvider } from "../Providers/AuthProvider";
 import NavBar from "../Pages/NavBar";
-import NavSubCat from "../Pages/NavSubCat";
+import { NavSubCat } from "../Pages/NavSubCat";
 import { NotFound } from "../Pages/NotFound";
 
 // Lazy load components
@@ -60,7 +60,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <NavBar />
-        <NavSubCat />
+        {/* <NavSubCat /> */}
 
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet />

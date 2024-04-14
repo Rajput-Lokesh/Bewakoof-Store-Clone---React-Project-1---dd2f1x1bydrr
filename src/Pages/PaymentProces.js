@@ -167,6 +167,12 @@ export const PaymentProcess = () => {
           <button
             onClick={() => navigate("/paymentprocess/confirmorderpayment")}
             className="bg-[#42a2a2] text-white font-bold py-3 px-6 rounded-full mt-6 w-full hover:bg-blue-600"
+            disabled={
+              cartItemList.reduce(
+                (totalPrice, item) => totalPrice + item.product.price * 0.75,
+                0
+              ) === 0
+            }
           >
             Checkout
           </button>
