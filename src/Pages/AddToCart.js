@@ -3,6 +3,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { Button } from "primereact/button";
 import { useAuth } from "../Providers/AuthProvider";
 import { SingleProductCard } from "../components/SingleProductCard";
@@ -274,7 +275,25 @@ export const AddToCart = () => {
           </div>
         </>
       ) : (
-        <div>NO Product Found In Cart..</div>
+        <div className="flex  flex-col items-center justify-center  animate-fadeIn">
+          <img
+            className="w-1/3"
+            src="https://cdni.iconscout.com/illustration/free/thumb/free-empty-cart-4085814-3385483.png"
+          />
+          <h2 className="text-2xl font-bold mb-4 text-gray-800">
+            No Products Found
+          </h2>
+          <p className="text-gray-600">
+            Oops! It seems there are no products in your cart.
+          </p>
+          <button
+            onClick={() => navigate("/")}
+            className="bg-sky-500 text-white px-4 py-2 rounded-md shadow hover:bg-sky-600"
+          >
+            <ShoppingBagOutlinedIcon className="mr-2" />
+            Continue Shopping
+          </button>
+        </div>
       )}
     </div>
   );

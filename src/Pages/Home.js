@@ -56,7 +56,7 @@ export const Home = () => {
             onClick={() => {
               navigate(`/productlist/productdetails/${product._id}`);
             }}
-            className="w-[340px] rounded-t-md"
+            className="w-full md:w-[340px] rounded-t-md"
             src={product.displayImage}
             alt={product.name}
           />
@@ -105,7 +105,7 @@ export const Home = () => {
           {afterSliderSmallCarousal.map((value) => (
             <li className="text-center ">
               <img className="w-[7rem] m-1 cursor-not-allowed" src={value} />
-              <span className="text-lg text-gray-800">Best Sellers</span>
+              {/* <span className="text-lg text-gray-800">Best Sellers</span> */}
             </li>
           ))}
         </ul>
@@ -120,19 +120,26 @@ export const Home = () => {
           </h1>
           <ul className="flex flex-wrap justify-evenly">
             {entries.map(([key, value]) => (
-              <li className="text-center ">
+              <li
+                onClick={() => navigate(`/productlist?type=${key}`)}
+                className="text-center "
+              >
                 <img
-                  onClick={() => navigate(`/productlist?type=${key}`)}
                   style={{ height: "350", width: "270px" }}
                   className="cursor-pointer"
                   src={value}
                 />
-                <span className="text-lg text-gray-800">{key}</span>
+                <span className="text-lg text-gray-600 font-bold hover:text-black">
+                  {key.toUpperCase()}
+                </span>
               </li>
             ))}
           </ul>
         </div>
         {/* Trending Category Section End  */}
+
+        {/* Banner image 2 */}
+        <img src={bannerImgs[1]} className="w-full my-[15px]" />
 
         {/* Best Deals Corousal start  */}
         <div>
@@ -152,8 +159,8 @@ export const Home = () => {
         </div>
         {/* Best Deals Corousal end  */}
 
-        {/* Banner image 2 */}
-        <img src={bannerImgs[1]} className="w-full my-[15px]" />
+        {/* Banner Image 3 */}
+        <img src={bannerImgs[2]} className="w-full my-1" />
 
         {/* TO HOT TO BE MISSED section start  */}
         <div>
@@ -168,8 +175,6 @@ export const Home = () => {
         </div>
         {/* TO HOT TO BE MISSED section end  */}
 
-        {/* Banner Image 3 */}
-        <img src={bannerImgs[2]} className="w-full my-1" />
         {/* Banner Image 4 */}
         <img src={bannerImgs[3]} className="w-full my-1" />
       </div>

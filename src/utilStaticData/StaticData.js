@@ -50,11 +50,14 @@ export const bestDealsResponsiveOptions = [
 ];
 
 export const getSliderImageObject = [
+  "https://images.bewakoof.com/uploads/grid/app/12Birthday-extend-1x1-common-1712938923.jpg",
   "https://images.bewakoof.com/uploads/grid/app/1x4-summerpalooza-ik-ezgif-com-optimize-1711301716.gif",
+  "https://images.bewakoof.com/uploads/grid/app/YFED-1x1-RM-CoOrds-01-1712903980.jpg",
+
   "https://images.bewakoof.com/uploads/grid/app/Peanuts-YFED-1x1-Graphic-final-1711690450.jpg",
   "https://images.bewakoof.com/uploads/grid/app/1x1-MARCH-GPOT-Common-ezgif-com-optimize--2--1711457859.gif",
   "https://images.bewakoof.com/uploads/grid/app/1x1-Epic-Fandom-Bundle-1711780965.jpg",
-
+  "https://images.bewakoof.com/uploads/grid/app/HC---1X1----unit-change-3-1712938921.png",
   "https://images.bewakoof.com/uploads/grid/app/HC--1x1-Trendy-Jeans--1--1711457861.gif",
 
   "https://images.bewakoof.com/uploads/grid/app/1x4-summerpalooza-ik-ezgif-com-optimize-1711301716.gif",
@@ -85,12 +88,12 @@ export const getCategoryImageObject = {
   jumpsuit:
     "https://images.bewakoof.com/original/women-s-orange-jumpsuit-495715-1656163087-3.jpg",
   shirt:
-    "https://images.bewakoof.com/t1080/men-s-blue-brain-wash-graphic-printed-oversized-hoodies-624567-1703686117-1.jpg",
+    "https://images.bewakoof.com/t1080/men-s-blue-striped-oversized-shirt-597301-1704957705-1.jpg",
 
   kurta:
-    "https://images.bewakoof.com/t1080/men-s-blue-brain-wash-graphic-printed-oversized-hoodies-624567-1703686117-1.jpg",
+    "https://images.bewakoof.com/t1080/men-s-black-relaxed-fit-long-kurta-317776-1663931262-1.jpg",
   kurti:
-    "https://images.bewakoof.com/t1080/men-s-blue-brain-wash-graphic-printed-oversized-hoodies-624567-1703686117-1.jpg",
+    "https://images.bewakoof.com/t1080/women-s-sleevelesss-ethnic-kurti-403804-1663921044-1.jpg",
   pyjamas:
     "https://img.tatacliq.com/images/i11/437Wx649H/MP000000017622604_437Wx649H_202305211434211.jpeg",
   shorts:

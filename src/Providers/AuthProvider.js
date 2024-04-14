@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   // Wishlist / addtocart list states end
 
-  const [getGender, setGender] = useState("");
+  const [getGender, setGender] = useState("Men");
   const [getSearchProdct, setSearchProduct] = useState("");
 
   const [getCategories, setCategories] = useState([]);

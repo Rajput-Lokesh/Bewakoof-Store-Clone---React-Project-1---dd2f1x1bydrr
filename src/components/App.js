@@ -4,6 +4,7 @@ import { AuthProvider } from "../Providers/AuthProvider";
 import NavBar from "../Pages/NavBar";
 import { NavSubCat } from "../Pages/NavSubCat";
 import { NotFound } from "../Pages/NotFound";
+import { TrackOrder } from "../components/TrackOrder";
 
 // Lazy load components
 const SingleProductCard = lazy(() =>
@@ -92,6 +93,7 @@ function App() {
               path="/wishlist/productdetails/:id"
               element={<ProductDetails />}
             />
+            <Route path="/trackorder" element={<TrackOrder />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

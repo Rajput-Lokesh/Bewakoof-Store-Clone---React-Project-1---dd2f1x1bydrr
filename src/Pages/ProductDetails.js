@@ -26,7 +26,7 @@ export function ProductDetails() {
 
   const [isAddedFav, setAddedFav] = useState(false);
   const [getSize, setSize] = useState("");
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState();
   const [isAddedToBag, setIsAddedToBag] = useState(false);
 
   const [productDetails, setProductDetails] = useState(null);
@@ -244,33 +244,15 @@ export function ProductDetails() {
               TriBe members get an extra discount of ₹50 and FREE shipping.
             </p>
             <div className="flex gap-1">
-              <Button
-                onClick={() => {
-                  alert("BUY 3 FOR 999");
-                }}
-                variant="contained"
-                color="success"
-              >
+              <div className="rounded-lg border-2 px-2 py-1 border-blue-400 text-sm bg-blue-100 text-slate-500">
                 BUY 3 FOR 999
-              </Button>
-              <Button
-                onClick={() => {
-                  alert("100% COTTON");
-                }}
-                color="secondary"
-                variant="outlined"
-              >
+              </div>
+              <div className="rounded-lg border-2 px-2 py-1 border-blue-400 text-sm bg-blue-100 text-slate-500">
                 100% COTTON
-              </Button>
-              <Button
-                onClick={() => {
-                  alert("100% COTTON");
-                }}
-                color="secondary"
-                variant="outlined"
-              >
-                {productDetails.sellerTag}
-              </Button>
+              </div>
+              <div className="rounded-lg border-2 px-2 py-1 border-blue-400 text-sm bg-blue-100 text-slate-500">
+                {productDetails.sellerTag.toUpperCase()}
+              </div>
             </div>
             <div className="flex gap-1 border w-fit rounded-lg shadow-lg">
               {/* Other product details */}

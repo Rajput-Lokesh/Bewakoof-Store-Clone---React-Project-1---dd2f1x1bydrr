@@ -34,18 +34,18 @@ export const NavCat = () => {
 
   useEffect(() => {
     handleInitailSetGender();
-    // fetch(catUrl, {
-    //   headers: {
-    //     projectId: "gar9pityowqx",
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setCategories(data.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching products:", error);
-    //   });
+    fetch(catUrl, {
+      headers: {
+        projectId: "gar9pityowqx",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
   }, [getGender]);
   // console.log("Inside sub navbar");
   // console.log(getCategories);

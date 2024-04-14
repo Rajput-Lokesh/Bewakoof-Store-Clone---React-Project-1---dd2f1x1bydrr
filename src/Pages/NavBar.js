@@ -120,9 +120,17 @@ const NavBar = () => {
             </NavLink>
           </div>
         </div>
+        {!expanded && (
+          <img
+            className="cursor-pointer w-[100px] mx-[40px]  md:hidden"
+            src="https://www.investcorp.com/wp-content/uploads/2019/11/42_Bewakoof_Logo_Black.png"
+            alt="bewkoofLogo"
+            onClick={() => navigate("/")}
+          />
+        )}
 
         <div className="flex">
-          <div className="flex items-center border h-8 w-full m-1 max-w-md px-2 rounded-md">
+          <div className="flex items-center  border h-8 w-full m-1 max-w-md px-2 rounded-md">
             {expanded && (
               <input
                 type="text"
@@ -131,13 +139,7 @@ const NavBar = () => {
                 className="flex-grow bg-transparent outline-none border-none px-3 placeholder:text-sm text-black m-1 w-1/3 md:w-full"
               />
             )}
-            {!expanded && (
-              <img
-                className="cursor-pointer w-[100px] mr-[30px]  md:hidden"
-                src="https://www.investcorp.com/wp-content/uploads/2019/11/42_Bewakoof_Logo_Black.png"
-                alt="bewkoofLogo"
-              />
-            )}
+
             <div className="cursor-pointer" onClick={toggleExpand}>
               <SearchOutlinedIcon className="text-black text-2xl" />
             </div>
@@ -159,7 +161,6 @@ const NavBar = () => {
                   ) : (
                     <div>
                       <AccountBoxIcon className="text-2xl hover:text-teal-400" />
-                      <p className="text-grey"> {"LogIn/Register"}</p>
                     </div>
                   )}
                 </button>
@@ -231,6 +232,17 @@ const NavBar = () => {
                 ) : null}
               </p>
             </div>
+            {localStorage.getItem("token") && (
+              <button
+                className="w-[2rem] mx-2 cursor"
+                onClick={() => navigate("/trackorder")}
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/1559/1559859.png"
+                  alt=""
+                />
+              </button>
+            )}
           </div>
         </div>
       </nav>

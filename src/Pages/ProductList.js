@@ -15,6 +15,8 @@ export const ProductList = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
 
+  const [noProductFound, setNoProductFound] = useState("");
+
   const [searchParams] = useSearchParams();
   const subCategory = searchParams.get("type");
 
@@ -39,7 +41,9 @@ export const ProductList = () => {
         }
       );
 
-      setProducts((prevData) => [...prevData, ...res.data.data]);
+      if (res) {
+        setProducts((prevData) => [...prevData, ...res.data.data]);
+      }
 
       setPage((prevPage) => prevPage + 1); // Update page here
     } catch (error) {
@@ -120,9 +124,12 @@ export const ProductList = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "fail") {
-          alert(data.message);
+          setNoProductFound(
+            `${subCategory} : ${data.message} for ${getGender} `
+          );
+        } else {
+          setProducts(data.data);
         }
-        setProducts(data.data);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
@@ -137,8 +144,6 @@ export const ProductList = () => {
     xyzFun();
   }, [getGender, subCategory]);
 
-  // Filter Sort bye price or sort by rating
-
   return (
     <>
       <div className=" flex justify-center w-full  mt-[5.5rem]">
@@ -146,7 +151,8 @@ export const ProductList = () => {
 
         <div className="w-[80%] sm:w-[100%]">
           <div className="flex flex-col flex-wrap md:flex-row items-center justify-evenly bg-slate-50 ">
-            {products ? (
+            {products &&
+              Array.isArray(products) &&
               products?.map((product, index) => (
                 <div
                   className="relative sm:w-[100%] md:max-w-[23%] max-w-[100%] max-h-full m-1 shadow-lg rounded-[20px] "
@@ -162,7 +168,7 @@ export const ProductList = () => {
                       alt={product.name}
                     />
                   </div>
-                  <p className="absolute top-[0px] bg-slate-500 py-[2px] px-[6px] rounded-br-lg rounded-tl-lg">
+                  <p className="absolute text-sm top-[0px] bg-slate-500 py-[2px] px-[6px] rounded-br-lg rounded-tl-lg">
                     PLUS_SIZE
                   </p>
                   <div className="absolute bottom-[13rem] flex">
@@ -203,13 +209,14 @@ export const ProductList = () => {
                     VICOUS RYAN
                   </Button>
                 </div>
-              ))
-            ) : (
+              ))}
+            {noProductFound && (
               <div className="text-center w-full bg-midnight text-white p-4 rounded-lg shadow-md">
                 <p className="text-lg">No Products Found</p>
                 <p className="text-sm mt-2">
                   Please try again later or refine your search criteria.
                 </p>
+                <h1>{noProductFound}</h1>
               </div>
             )}
           </div>

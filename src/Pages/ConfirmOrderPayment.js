@@ -23,7 +23,10 @@ export const ConfirmOrderPayment = () => {
 
   const upiValidationSchema = Yup.object({
     upiId: Yup.string()
-      .matches(/^[\w.-]+@[a-zA-Z]{2,}\.[a-zA-Z]{2,}$/, "Invalid UPI ID")
+      .matches(/^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}$/, {
+        message: "Invalid UPI ID",
+        excludeEmptyString: true,
+      })
       .required("UPI ID is required"),
   });
 
@@ -164,7 +167,7 @@ export const ConfirmOrderPayment = () => {
                   className="w-full border rounded p-2 mb-2"
                   type="text"
                   name="upiId"
-                  placeholder="UPI ID"
+                  placeholder="my_upi-id@bank_name "
                 />
               )}
 
