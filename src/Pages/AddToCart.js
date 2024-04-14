@@ -9,7 +9,10 @@ import { SingleProductCard } from "../components/SingleProductCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Carousel } from "primereact/carousel";
-import { responsiveOptions } from "../utilStaticData/StaticData";
+import {
+  responsiveOptions,
+  bestDealsResponsiveOptions,
+} from "../utilStaticData/StaticData";
 
 export const AddToCart = () => {
   const navigate = useNavigate();
@@ -253,7 +256,7 @@ export const AddToCart = () => {
             </div>
           </div>
 
-          <div className="mx-[120px]">
+          <div className=" md:mx-[120px]">
             <h1 className="text-xl m-[20px] font-bold">
               Want to add more from your wishlist..
             </h1>
@@ -262,7 +265,7 @@ export const AddToCart = () => {
               value={wishlistItems}
               numVisible={5}
               numScroll={1}
-              responsiveOptions={responsiveOptions}
+              responsiveOptions={bestDealsResponsiveOptions}
               className="custom-carousel"
               circular
               autoplayInterval={3000}

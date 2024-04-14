@@ -73,10 +73,10 @@ const NavBar = () => {
   return (
     <>
       <nav className="flex justify-between items-center px-[10px] md:px-[100px] py-[5px] fixed w-full top-[0px] bg-slate-50  z-40 border-b-[2px] ">
-        <div style={{ display: "flex" }}>
+        <div className="flex ">
           <NavLink to="/">
             <img
-              className="cursor-pointer w-[100px] mr-[30px] hidden  md:block"
+              className="cursor-pointer  w-[100px] mr-[30px] hidden  md:block"
               src="https://www.investcorp.com/wp-content/uploads/2019/11/42_Bewakoof_Logo_Black.png"
               alt="bewkoofLogo"
             />
@@ -122,7 +122,7 @@ const NavBar = () => {
         </div>
 
         <div className="flex">
-          <div className="flex items-center border h-10 w-full m-1 max-w-md px-2 rounded-md">
+          <div className="flex items-center border h-8 w-full m-1 max-w-md px-2 rounded-md">
             {expanded && (
               <input
                 type="text"

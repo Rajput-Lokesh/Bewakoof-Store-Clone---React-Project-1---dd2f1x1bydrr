@@ -141,7 +141,7 @@ export const ProductList = () => {
 
   return (
     <>
-      <div className=" flex justify-center w-full  mt-[8rem]">
+      <div className=" flex justify-center w-full  mt-[5.5rem]">
         <AsideFilters list={products} setList={setProducts} />
 
         <div className="w-[80%] sm:w-[100%]">
@@ -175,7 +175,7 @@ export const ProductList = () => {
                     <b>Bewakoof®</b>
                     {/* <FavoriteBorderIcon /> */}
                   </p>
-                  <div className="h-[3rem]">
+                  <div className="h-[4rem]">
                     <p>{product.name}</p>
                   </div>
                   <p className="text-slate-500">

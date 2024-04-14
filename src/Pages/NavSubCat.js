@@ -69,10 +69,10 @@ export const NavCat = () => {
     <div>
       <div>
         {/* Navbar for larger devices */}
-        <nav className="flex fixed w-full   top-[70px] bg-white z-30 justify-around items-center py-2 px-4 border-b-2">
+        <nav className="flex fixed w-full   top-[60px] bg-white z-30 justify-around items-center py-1 px-3 md:border-b-2">
           {getCategories.map((catName, index) => (
             <p
-              className="cursor-pointer text-lg text-black-700 hover:text-slate-400"
+              className="cursor-pointer text-sm text-black-700 hover:text-slate-400"
               key={index}
               onClick={() => {
                 navi(catName);
@@ -84,7 +84,7 @@ export const NavCat = () => {
         </nav>
 
         {/* Dropdown navbar for smaller devices */}
-        <nav className="flex  md:hidden fixed w-full top-[70px] bg-red z-30 justify-center items-center py-2 px-4 border-b-2">
+        <nav className="flex  md:hidden fixed w-full bg-red-300 top-[60px] bg-red z-30 justify-center items-center py-0 md:py-1 px-0 md:px-3 border-b-2">
           <select
             className="outline-none w-full text-center"
             onChange={handleCategoryChange}

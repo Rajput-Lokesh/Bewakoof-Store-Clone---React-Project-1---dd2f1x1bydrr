@@ -51,24 +51,26 @@ export const Home = () => {
   const bestSellerProTemplate = (product) => {
     return (
       <>
-        <div className=" w-fit m-2">
+        <div className=" w-fit mx-1">
           <img
             onClick={() => {
               navigate(`/productlist/productdetails/${product._id}`);
             }}
-            className="w-[330px]"
+            className="w-[340px] rounded-t-md"
             src={product.displayImage}
             alt={product.name}
           />
 
-          <p className="absolute top-[0px] bg-grey">PLUS_SIZE</p>
-
-          <p className="flex justify-between">
-            <b>Bewakoof®</b> <FavoriteBorderIcon />
+          <p className="absolute top-[0px] text-sm px-2 rounded-tl-md rounded-br-md bg-slate-400">
+            PLUS_SIZE
           </p>
 
-          <div className="h-[3rem]">
-            <p>{product.name}</p>
+          <p className="flex justify-between">
+            <b>Bewakoof®</b>
+          </p>
+
+          <div className="h-[2.5rem]">
+            <p className="text-sm">{product.name}</p>
           </div>
           <p className="text-slate-500">Category : {product.subCategory}</p>
           <p>
@@ -102,11 +104,7 @@ export const Home = () => {
         <ul className="flex flex-wrap justify-center ">
           {afterSliderSmallCarousal.map((value) => (
             <li className="text-center ">
-              <img
-                className="w-[8rem] m-1"
-                // style={{ width: "150px", margin: "15px" }}
-                src={value}
-              />
+              <img className="w-[7rem] m-1 cursor-not-allowed" src={value} />
               <span className="text-lg text-gray-800">Best Sellers</span>
             </li>
           ))}
@@ -126,6 +124,7 @@ export const Home = () => {
                 <img
                   onClick={() => navigate(`/productlist?type=${key}`)}
                   style={{ height: "350", width: "270px" }}
+                  className="cursor-pointer"
                   src={value}
                 />
                 <span className="text-lg text-gray-800">{key}</span>

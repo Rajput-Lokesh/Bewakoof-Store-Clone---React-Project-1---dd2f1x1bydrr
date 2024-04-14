@@ -21,7 +21,7 @@ export const SingleProductCard = (product) => {
 
   return (
     <>
-      <div className="relative w-[300px] flex max-h-full flex-col m-1 shadow-lg rounded-[20px] ">
+      <div className="relative w-full md:w-[300px] flex max-h-full flex-col m-1 shadow-lg rounded-[20px] ">
         <img
           className="cursor-pointer rounded-t-lg w-[450px] hover:opacity-60"
           onClick={() => {
@@ -31,7 +31,7 @@ export const SingleProductCard = (product) => {
           }}
           src={product.product.products?.displayImage}
         />
-        <p className="absolute top-[0px] left-[0px] bg-grey py-[2px] px-[6px] rounded-br-lg rounded-tl-lg">
+        <p className="absolute bg-slate-400 top-[0px] left-[0px] bg-grey py-[2px] px-[6px] rounded-br-lg rounded-tl-lg">
           PLUS_SIZE
         </p>
         <button
