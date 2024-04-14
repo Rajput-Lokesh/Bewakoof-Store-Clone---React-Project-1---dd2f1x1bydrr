@@ -152,14 +152,16 @@ export const ProductList = () => {
                   className="relative sm:w-[100%] md:max-w-[23%] max-w-[100%] max-h-full m-1 shadow-lg rounded-[20px] "
                   key={index}
                 >
-                  <img
-                    className="transition-transform duration-300 hover:scale-105 cursor-pointer rounded-t-lg w-[100%] "
-                    onClick={() => {
-                      navigate(`/productlist/productdetails/${product._id}`);
-                    }}
-                    src={product.displayImage}
-                    alt={product.name}
-                  />
+                  <div className=" cursor-pointer rounded-t-lg w-[100%]   ">
+                    <img
+                      className="rounded-t-lg"
+                      onClick={() => {
+                        navigate(`/productlist/productdetails/${product._id}`);
+                      }}
+                      src={product.displayImage}
+                      alt={product.name}
+                    />
+                  </div>
                   <p className="absolute top-[0px] bg-slate-500 py-[2px] px-[6px] rounded-br-lg rounded-tl-lg">
                     PLUS_SIZE
                   </p>
