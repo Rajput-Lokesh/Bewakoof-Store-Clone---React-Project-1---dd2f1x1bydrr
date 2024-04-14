@@ -175,7 +175,7 @@ export function ProductDetails() {
       {productDetails && (
         <div className="flex flex-col md:flex-row justify-around items-start gap-8">
           <div className="flex flex-col items-center   gap-4">
-            <div className="flex gap-1 ">
+            <div className="hidden md:flex gap-1   ">
               <button className="w-[4rem]" onClick={handlePrevImg}>
                 <ArrowCircleLeftTwoToneIcon
                   className="text-sky-500 hover:text-slate-900"
@@ -207,7 +207,7 @@ export function ProductDetails() {
               <img
                 src={productDetails.images[currentImg]}
                 alt={productDetails.name}
-                className="mt-4 md:mt-0 w-[300px]"
+                className="mt-4 md:mt-0 w-[550px] md:w-[350px]  "
               />
             </div>
           </div>
