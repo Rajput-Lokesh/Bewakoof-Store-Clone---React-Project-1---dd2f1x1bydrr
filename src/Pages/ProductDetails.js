@@ -400,24 +400,23 @@ export function ProductDetails() {
                       ))}
                     </div>
                   </div>
-                  <div>
-                    {userIdReview === pro.user
-                      ? `User : ${getName} ,you can delete this review only `
-                      : null}
-                  </div>
                   <div>userId : {pro.user}</div>
-                  <button
-                    className="border-metal border rounded-md hover:text-black hover:font-bold text-metal px-2 py-1 my-1"
-                    onClick={() => {
-                      if (localStorage.getItem("token")) {
-                        deleteReview(pro._id, pro.user);
-                      } else {
-                        alert("Please log in first");
-                      }
-                    }}
-                  >
-                    Delete review
-                  </button>
+                  <div>
+                    {userIdReview === pro.user ? (
+                      <button
+                        className="border-metal border rounded-md bg-amber-500 hover:text-white font-bold text-metal px-2 py-1 my-1"
+                        onClick={() => {
+                          if (localStorage.getItem("token")) {
+                            deleteReview(pro._id, pro.user);
+                          } else {
+                            alert("Please log in first");
+                          }
+                        }}
+                      >
+                        Delete review
+                      </button>
+                    ) : null}
+                  </div>
                 </div>
               ))}
             </div>
