@@ -19,9 +19,11 @@ import {
 
 export const Home = () => {
   const navigate = useNavigate();
+  const { getGender } = useAuth();
 
   const [getProduct, setProducts] = useState([]);
-  const entries = Object.entries(getCategoryImageObject);
+  const ob = getCategoryImageObject();
+  const entries = Object.entries(ob);
 
   const productTemplate = (pro) => {
     return (
@@ -125,7 +127,10 @@ export const Home = () => {
                 className="text-center "
               >
                 <img
-                  style={{ height: "350", width: "270px" }}
+                  style={{
+                    height: "300px",
+                    width: getGender === "Men" ? "270px" : "250px",
+                  }}
                   className="cursor-pointer"
                   src={value}
                 />

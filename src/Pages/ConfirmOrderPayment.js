@@ -11,7 +11,13 @@ export const ConfirmOrderPayment = () => {
   const address = JSON.parse(localStorage.getItem("userAddressDetails"));
   console.log("Inside  confirm order payment");
   console.log(address);
-  const { cartItemList, totalAmmount, deleteAllCartItems } = useAuth();
+  const {
+    cartItemList,
+    totalAmmount,
+    deleteAllCartItems,
+    orderCreatedResponse,
+    setOrderCreatedResponse,
+  } = useAuth();
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const cardValidationSchema = Yup.object({
@@ -37,31 +43,23 @@ export const ConfirmOrderPayment = () => {
   const codValidationSchema = Yup.object({});
 
   const handleSubmit = async (values) => {
-    console.log("Your Order has been placed successfully!");
-    console.log(values); // You can handle form submission here
-    let proId;
-    if (cartItemList) {
-      proId = cartItemList[0]._id + "";
-    } else {
-      proId = "652675cddaf00355a7838161";
-    }
-    console.log("Product Id");
-    console.log(proId);
+    const body = {
+      productId: "652675cddaf00355a7838161",
+      quantity: 2,
+      addressType: "HOME",
+      address: {
+        street: address.landmark,
+        city: address.city,
+        state: address.state,
+        country: address.country,
+        zipCode: address.zipCode,
+      },
+    };
+
     try {
       const response = await axios.post(
         "https://academics.newtonschool.co/api/v1/ecommerce/order",
-        {
-          productId: proId,
-          quantity: 2,
-          addressType: address.addressType,
-          address: {
-            street: address.landmark,
-            city: address.city,
-            state: address.state,
-            country: address.country,
-            zipCode: address.zipCode,
-          },
-        },
+        body,
         {
           headers: {
             projectId: "gar9pityowqx",
@@ -69,8 +67,12 @@ export const ConfirmOrderPayment = () => {
           },
         }
       );
-      console.log(response);
-      await deleteAllCartItems();
+      setOrderCreatedResponse(response.data.data);
+      console.log(response.data.message);
+      console.log(response.data.data.status);
+      console.log(response.data.data);
+
+      deleteAllCartItems();
       navigate("/paymentprocess/confirmorderpayment/orderconfirmgreetingPage");
     } catch (err) {
       console.log("Error shows ", err);

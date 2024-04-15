@@ -1,9 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+import { useNavigate } from "react-router-dom";
+
 export function OrderConfirmGreetingPage() {
+  const navigate = useNavigate();
+
   return (
     <motion.div
+      onClick={() => navigate("/trackorder")}
       className="flex justify-center bg-slate-500 items-center h-screen"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

@@ -38,6 +38,8 @@ export const AuthProvider = ({ children }) => {
 
   const [cartItemToggle, setCartItemToggle] = useState(true);
 
+  const [orderCreatedResponse, setOrderCreatedResponse] = useState();
+
   const [storageData, setStorageData] = useState(
     JSON.parse(localStorage.getItem("addData"))
   );
@@ -241,6 +243,8 @@ export const AuthProvider = ({ children }) => {
     getCategories,
     setCategories,
     cartItemList,
+    orderCreatedResponse,
+    setOrderCreatedResponse,
     setCartItemList,
     getGender,
     setGender,

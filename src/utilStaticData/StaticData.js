@@ -1,3 +1,5 @@
+import { useAuth } from "../Providers/AuthProvider";
+
 // API BASE URL
 export const API_BASE_URL = `https://academics.newtonschool.co`;
 
@@ -78,34 +80,72 @@ export const afterSliderSmallCarousal = [
   "https://images.bewakoof.com/uploads/grid/app/last-size-new-thumbnaik-1668508337.jpg",
 ];
 
-export const getCategoryImageObject = {
-  hoodie:
-    "https://images.bewakoof.com/t1080/men-s-blue-brain-wash-graphic-printed-oversized-hoodies-624567-1703686117-1.jpg",
-  jeans:
-    "https://images.bewakoof.com/t1080/men-s-blue-baggy-straight-fit-distressed-cargo-jeans-624259-1707221481-1.jpg",
-  jogger:
-    "https://images.bewakoof.com/t1080/men-s-green-oversized-cargo-joggers-552881-1710769630-1.jpg",
-  jumpsuit:
-    "https://images.bewakoof.com/original/women-s-orange-jumpsuit-495715-1656163087-3.jpg",
-  shirt:
-    "https://images.bewakoof.com/t1080/men-s-blue-striped-oversized-shirt-597301-1704957705-1.jpg",
+export const getCategoryImageObject = () => {
+  const { getGender } = useAuth();
+  if (getGender === "Men") {
+    return {
+      hoodie:
+        "https://images.bewakoof.com/t1080/men-s-blue-brain-wash-graphic-printed-oversized-hoodies-624567-1703686117-1.jpg",
+      jeans:
+        "https://images.bewakoof.com/t1080/men-s-blue-baggy-straight-fit-distressed-cargo-jeans-624259-1707221481-1.jpg",
+      jogger:
+        "https://images.bewakoof.com/t1080/men-s-green-oversized-cargo-joggers-552881-1710769630-1.jpg",
+      shirt:
+        "https://images.bewakoof.com/t1080/men-s-blue-striped-oversized-shirt-597301-1704957705-1.jpg",
 
-  kurta:
-    "https://images.bewakoof.com/t1080/men-s-black-relaxed-fit-long-kurta-317776-1663931262-1.jpg",
-  kurti:
-    "https://images.bewakoof.com/t1080/women-s-sleevelesss-ethnic-kurti-403804-1663921044-1.jpg",
-  pyjamas:
-    "https://img.tatacliq.com/images/i11/437Wx649H/MP000000017622604_437Wx649H_202305211434211.jpeg",
-  shorts:
-    "https://rukminim2.flixcart.com/image/850/1000/xif0q/short/m/5/r/s-581532-bewakoof-original-imagtkahygetchsh.jpeg?q=20&crop=false",
+      kurta:
+        "https://images.bewakoof.com/t1080/men-s-black-relaxed-fit-long-kurta-317776-1663931262-1.jpg",
+      pyjamas:
+        "https://img.tatacliq.com/images/i11/437Wx649H/MP000000017622604_437Wx649H_202305211434211.jpeg",
 
-  trouser:
-    "https://images.bewakoof.com/t640/men-s-white-oversized-parachute-pants-628719-1707200253-1.jpg",
-  tracksuit:
-    "https://assets.myntassets.com/dpr_1.5,q_60,w_400,c_limit,fl_progressive/assets/images/26416968/2023/12/14/a3512d75-260e-458d-92a7-294e66f6e21d1702537939618BewakoofWomensBlueButterflyGraphicPrintedCo-ordinates1.jpg",
-  tshirt:
-    "https://adn-static1.nykaa.com/nykdesignstudio-images/pub/media/catalog/product/4/c/4c6f336DBEWAK00023028_1.jpg?rnd=20200526195200&tr=w-512",
+      trouser:
+        "https://images.bewakoof.com/t640/men-s-white-oversized-parachute-pants-628719-1707200253-1.jpg",
+      tracksuit:
+        "https://m.media-amazon.com/images/I/71yF199qw0L._AC_UY1100_.jpg",
+    };
+  } else if (getGender === "Women") {
+    return {
+      jeans:
+        "https://assets.ajio.com/medias/sys_master/root/20230822/jQQG/64e3ba21ddf7791519595224/-473Wx593H-466475970-aqua-MODEL.jpg",
+      jogger:
+        "https://images.bewakoof.com/t1080/men-s-green-oversized-cargo-joggers-552881-1710769630-1.jpg",
+      jumpsuit:
+        "https://images.bewakoof.com/original/women-s-orange-jumpsuit-495715-1656163087-3.jpg",
+      kurti:
+        "https://images.bewakoof.com/t1080/women-s-sleevelesss-ethnic-kurti-403804-1663921044-1.jpg",
+      shirt:
+        "https://assets.ajio.com/medias/sys_master/root/20230519/7WSW/646794b442f9e729d79d2f53/-473Wx593H-443014940-navy-MODEL.jpg",
+    };
+  }
 };
+// export const getCategoryImageObject = {
+//   hoodie:
+//     "https://images.bewakoof.com/t1080/men-s-blue-brain-wash-graphic-printed-oversized-hoodies-624567-1703686117-1.jpg",
+//   jeans:
+//     "https://images.bewakoof.com/t1080/men-s-blue-baggy-straight-fit-distressed-cargo-jeans-624259-1707221481-1.jpg",
+//   jogger:
+//     "https://images.bewakoof.com/t1080/men-s-green-oversized-cargo-joggers-552881-1710769630-1.jpg",
+//   jumpsuit:
+//     "https://images.bewakoof.com/original/women-s-orange-jumpsuit-495715-1656163087-3.jpg",
+//   shirt:
+//     "https://images.bewakoof.com/t1080/men-s-blue-striped-oversized-shirt-597301-1704957705-1.jpg",
+
+//   kurta:
+//     "https://images.bewakoof.com/t1080/men-s-black-relaxed-fit-long-kurta-317776-1663931262-1.jpg",
+//   kurti:
+//     "https://images.bewakoof.com/t1080/women-s-sleevelesss-ethnic-kurti-403804-1663921044-1.jpg",
+//   pyjamas:
+//     "https://img.tatacliq.com/images/i11/437Wx649H/MP000000017622604_437Wx649H_202305211434211.jpeg",
+//   shorts:
+//     "https://rukminim2.flixcart.com/image/850/1000/xif0q/short/m/5/r/s-581532-bewakoof-original-imagtkahygetchsh.jpeg?q=20&crop=false",
+
+//   trouser:
+//     "https://images.bewakoof.com/t640/men-s-white-oversized-parachute-pants-628719-1707200253-1.jpg",
+//   tracksuit:
+//     "https://assets.myntassets.com/dpr_1.5,q_60,w_400,c_limit,fl_progressive/assets/images/26416968/2023/12/14/a3512d75-260e-458d-92a7-294e66f6e21d1702537939618BewakoofWomensBlueButterflyGraphicPrintedCo-ordinates1.jpg",
+//   tshirt:
+//     "https://adn-static1.nykaa.com/nykdesignstudio-images/pub/media/catalog/product/4/c/4c6f336DBEWAK00023028_1.jpg?rnd=20200526195200&tr=w-512",
+// };
 
 // Banner Images
 // Banner 1
