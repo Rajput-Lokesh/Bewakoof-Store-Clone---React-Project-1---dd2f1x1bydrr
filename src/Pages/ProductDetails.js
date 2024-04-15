@@ -267,6 +267,7 @@ export function ProductDetails() {
                 name="quantity"
                 className=" w-fit border rounded-md px-1 mx-1"
               >
+                <option defaultValue={""}>-</option>
                 {QuantityOption.map((op, index) => (
                   <option value={op} key={index}>
                     {op}
