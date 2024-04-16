@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   // Wishlist / addtocart list states end
 
   const [getGender, setGender] = useState("Men");
-  const [getSearchProdct, setSearchProduct] = useState("");
+  const [getSearchProduct, setSearchProduct] = useState("");
 
   const [getCategories, setCategories] = useState([]);
 
@@ -229,7 +229,7 @@ export const AuthProvider = ({ children }) => {
     deleteCartItem,
     setTotalAmmount,
     fetchWishList,
-    getSearchProdct,
+    getSearchProduct,
     setSearchProduct,
     getProductQuntityInAddToCart,
     wishListCount,

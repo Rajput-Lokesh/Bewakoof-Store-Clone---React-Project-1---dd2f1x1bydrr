@@ -14,8 +14,8 @@ export const AsideFilters = ({ setList, list }) => {
   const [selectedRating, setSelectedRating] = useState();
 
   useEffect(() => {
-    // Constructing the API URL based on selected filters
     const filter = {};
+    const sort = {};
     if (selectedSize) filter.size = selectedSize;
     if (selectedGender) {
       setGender(selectedGender);
@@ -42,12 +42,26 @@ export const AsideFilters = ({ setList, list }) => {
     if (searchByCategoryFilter) filter.subCategory = searchByCategoryFilter;
     if (getSellerTag) filter.sellerTag = getSellerTag;
 
+    if (selectedSort) {
+      sort.price = selectedSort;
+    }
+    if (selectedRating) {
+      sort.ratings = selectedRating;
+    }
+
     const searchApi = `https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?filter=${JSON.stringify(
       filter
-    )}`;
+    )}&sort=${JSON.stringify(sort)}`;
 
     fetchProducts(searchApi);
-  }, [selectedSize, selectedGender, searchByCategoryFilter, getSellerTag]);
+  }, [
+    selectedSize,
+    selectedGender,
+    searchByCategoryFilter,
+    getSellerTag,
+    selectedRating,
+    selectedSort,
+  ]);
 
   const handleSizeChange = (event) => {
     setSelectedSize(event.target.value);
@@ -63,6 +77,14 @@ export const AsideFilters = ({ setList, list }) => {
 
   const handleSellerTag = (event) => {
     setSellerTag(event.target.value);
+  };
+
+  const handlerSortChange = (event) => {
+    setSelectedSort(event.target.value);
+  };
+
+  const handleRatingChange = (event) => {
+    setSelectedRating(+event.target.value);
   };
 
   const fetchProducts = (searchApi) => {
@@ -83,35 +105,6 @@ export const AsideFilters = ({ setList, list }) => {
         console.error("Error fetching products:", error);
         setError(error);
       });
-  };
-
-  const handlerSortChange = (event) => {
-    const sort = {};
-    const newSort = event.target.value;
-    setSelectedSort(newSort);
-    if (newSort) {
-      sort.price = newSort;
-    }
-    const searchApi = `https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?sort=${JSON.stringify(
-      sort
-    )}`;
-
-    fetchProducts(searchApi);
-  };
-
-  const handleRatingChange = (event) => {
-    const ratings = {};
-    const newRating = +event.target.value;
-    setSelectedRating(newRating);
-    if (newRating) {
-      ratings.ratings = newRating;
-    }
-
-    const searchApi = `https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?sort=${JSON.stringify(
-      ratings
-    )}`;
-
-    fetchProducts(searchApi);
   };
 
   return (

@@ -41,7 +41,7 @@ const NavBar = () => {
   console.log("Inside nav");
   console.log(cartItemCount);
   const inputHandler = (e) => {
-    setSearchProduct(e.target.value.trim());
+    setSearchProduct(e.target.value.trim().toLowerCase());
     navigate("/productlist");
   };
 
@@ -93,7 +93,7 @@ const NavBar = () => {
               <p
                 className={
                   getGender === "Men"
-                    ? "text-slate-900 font-bold   "
+                    ? "text-sky-300 font-bold   "
                     : "text-slate-500"
                 }
               >
@@ -111,7 +111,7 @@ const NavBar = () => {
               <p
                 className={
                   getGender === "Women"
-                    ? "text-slate-900 font-bold   "
+                    ? "text-pink-300 font-bold   "
                     : "text-slate-500"
                 }
               >

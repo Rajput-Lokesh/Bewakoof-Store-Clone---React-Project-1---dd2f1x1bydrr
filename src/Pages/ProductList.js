@@ -20,39 +20,50 @@ export const ProductList = () => {
   const [searchParams] = useSearchParams();
   const subCategory = searchParams.get("type");
 
-  const fetchData = async () => {
-    if (isFetching) return;
+  const fetchData = async (url) => {
+    setIsFetching(true);
     try {
-      setIsFetching(true);
-      const res = await axios.get(
-        `${API_BASE_URL}/api/v1/ecommerce/clothes/products?limit=20&page=${page}&gender=${getGender}`,
-        {
-          headers: {
-            projectId: "gar9pityowqx",
-          },
-        }
-      );
-      if (res) {
-        setProducts((prevData) => [...prevData, ...res.data.data]);
-        setPage((prevPage) => prevPage + 1);
-      }
+      const res = await axios.get(url, {
+        headers: {
+          projectId: "gar9pityowqx",
+        },
+      });
+      return res.data.data;
     } catch (error) {
       console.error("Error fetching data:", error);
+      return [];
     } finally {
       setIsFetching(false);
     }
   };
 
-  const debouncedFetchData = debounce(fetchData, 500);
-
-  const handleScroll = () => {
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
-
-    if (scrollTop + clientHeight >= scrollHeight - 100) {
-      debouncedFetchData();
+  const handleScroll = debounce(() => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight - 100 && !isFetching) {
+      const nextPageUrl = buildUrl(page);
+      fetchData(nextPageUrl).then((data) => {
+        if (data && data.length > 0) {
+          setProducts((prevData) => [...prevData, ...data]);
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
     }
+  }, 500);
+
+  const buildUrl = (pageNumber) => {
+    let url = `${API_BASE_URL}/api/v1/ecommerce/clothes/products?limit=20&page=${pageNumber}`;
+
+    if (getSearchProduct) {
+      url += `&search={"name":"${getSearchProduct}"}`;
+    } else if (subCategory && getGender) {
+      url += `&filter={"gender":"${getGender}", "subCategory":"${subCategory}"}`;
+    } else if (subCategory) {
+      url += `&filter={"subCategory":"${subCategory}"}`;
+    } else if (getGender) {
+      url += `&filter={"gender":"${getGender}"}`;
+    }
+
+    return url;
   };
 
   useEffect(() => {
@@ -60,69 +71,16 @@ export const ProductList = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const searchApi = `${API_BASE_URL}/api/v1/ecommerce/clothes/products?search={"name":"${getSearchProduct}"}`;
-    fetch(searchApi, {
-      headers: {
-        projectId: "gar9pityowqx",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
-  }, [getSearchProduct]);
-
-  const xyzFun = () => {
-    let productUrl = `${API_BASE_URL}/api/v1/ecommerce/clothes/products?filter=`;
-    const subPath1 = `{"gender":"${getGender}"}`;
-    const subPath2 = `{"gender":"${getGender}", "subCategory":"${subCategory}"}`;
-    const subPath3 = `{"subCategory":"${subCategory}"}`;
-
-    if (subCategory && getGender) {
-      productUrl = productUrl + subPath2;
-    } else if (subCategory) {
-      productUrl = productUrl + subPath3;
-    } else if (getGender) {
-      productUrl = productUrl + subPath1;
-    }
-
-    fetch(productUrl, {
-      headers: {
-        projectId: "gar9pityowqx",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "fail") {
-          setNoProductFound(
-            `${subCategory} : ${data.message} for ${getGender}`
-          );
-        } else {
-          setProducts(data.data);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
-  };
-
-  useEffect(() => {
-    xyzFun();
-  }, []);
-
-  useEffect(() => {
-    xyzFun();
-  }, [getGender, subCategory]);
+    fetchData(buildUrl(1)).then((data) => {
+      if (data) {
+        setProducts(data);
+        setPage(2);
+      }
+    });
+  }, [getSearchProduct, getGender, subCategory]);
 
   return (
     <div className="flex justify-center w-full mt-[5.5rem]">
