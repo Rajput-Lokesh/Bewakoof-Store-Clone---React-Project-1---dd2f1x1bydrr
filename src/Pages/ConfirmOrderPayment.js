@@ -48,6 +48,47 @@ export const ConfirmOrderPayment = () => {
   const handleSubmit = async (values) => {
     console.log(values);
     try {
+      const response = await axios.post(
+        "https://academics.newtonschool.co/api/v1/ecommerce/order",
+        {
+          productId: `652675ccdaf00355a78380f8`,
+          quantity: 2,
+          addressType: "HOME",
+          address: {
+            street: address.area,
+            city: address.city,
+            state: address.state,
+            country: address.country,
+            zipCode: address.zipCode,
+          },
+        },
+        {
+          headers: {
+            projectId: "gar9pityowqx",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(response);
+      console.log(response.status);
+      console.log(response.message);
+      console.log(response.data.message);
+      console.log(response.data.data);
+      setOrderCreatedResponse(response.data.data);
+
+      if (response.status === 200) {
+        navigate(
+          "/paymentprocess/confirmorderpayment/orderconfirmgreetingPage"
+        );
+      }
+    } catch (err) {
+      console.log("Error shows ", err);
+    }
+  };
+
+  {
+    /*
+ try {
       const requests = cartItemList.map(async (item) => {
         const { _id: productId, quantity } = item;
 
@@ -84,7 +125,8 @@ export const ConfirmOrderPayment = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+*/
+  }
 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);

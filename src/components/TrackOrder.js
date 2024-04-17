@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../Providers/AuthProvider";
 import axios from "axios";
+import { Modal } from "../Portals/PortalM";
 
 export function TrackOrder() {
-  // const { orderCreatedResponse } = useAuth();
+  const { orderCreatedResponse, orderHistory, setOrderHistory } = useAuth();
   const [getOrderProduct, setOrderProduct] = useState();
+  console.log("Order Created Response");
+  console.log(orderCreatedResponse);
 
   // Order history APi Call
 
@@ -34,7 +37,7 @@ export function TrackOrder() {
   const getOrderDetails = async () => {
     try {
       const response = await axios.get(
-        `https://academics.newtonschool.co/api/v1/ecommerce/order/  `,
+        `https://academics.newtonschool.co/api/v1/ecommerce/order/`,
         {
           headers: {
             projectId: "gar9pityowqx",
@@ -43,11 +46,12 @@ export function TrackOrder() {
         }
       );
 
+      console.log("Get Order Details...");
       console.log(response);
       console.log(response.data);
       console.log(response.data.data);
-      // setOrderProduct(response.data.data.items[0]);
-      console.log(response.data.data.items[0].product.brand);
+      setOrderHistory(response.data.data);
+      setOrderProduct(response.data.data.items[0]);
     } catch (err) {
       console.log("Inside catch Block");
       console.log(err);
@@ -58,8 +62,25 @@ export function TrackOrder() {
     getOrderDetails();
   }, []);
 
+  // Modal Purpose
+  const [open, setopen] = useState(false);
+
+  const handleOpenModal = () => {
+    setopen(!open);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 mt-[60px]">
+      {open && <Modal isOpen={handleOpenModal} />}
+      <div>
+        <button
+          className="bg-sky-200 rounded-lg px-4 py-1 text-slate-400 font-bold"
+          onClick={() => setopen(!open)}
+        >
+          Order History
+        </button>
+      </div>
+
       <img
         className="w-full md:max-w-lg mx-auto mb-8"
         src="https://sanfe.in/cdn/shop/files/Track-your-order.jpg?v=1614253167&width=1600"
@@ -87,7 +108,7 @@ export function TrackOrder() {
         {/* <div>
           <h1 className="text-lg font-semibold mb-2">Shipping Details</h1>
           <div>
-             <p className="mb-1">Order Date: {orderCreatedResponse.orderDate}</p> 
+            <p className="mb-1">Order Date: {orderCreatedResponse.orderDate}</p>
             <p className="mb-1">
               Shipment Type: {orderCreatedResponse.shipmentDetails.type}
             </p>
@@ -107,12 +128,12 @@ export function TrackOrder() {
               State: {orderCreatedResponse.shipmentDetails.address.state}
             </p>
           </div>
-        </div> */}
+        </div>
 
         <div>
           <h1>My Orders</h1>
-          {/* <div>{getOrderProduct.product.brand}</div> */}
-        </div>
+          <div>{getOrderProduct.product.brand}</div>
+        </div> */}
       </div>
     </div>
   );

@@ -25,6 +25,8 @@ export const AuthProvider = ({ children }) => {
   const [getCategories, setCategories] = useState([]);
   const [orderCreatedResponse, setOrderCreatedResponse] = useState();
 
+  const [orderHistory, setOrderHistory] = useState([]);
+
   const NameHandler = (data) => {
     setName(data);
     localStorage.setItem("name", data);
@@ -224,6 +226,8 @@ export const AuthProvider = ({ children }) => {
     addToWishList,
     token,
     fetchCartItems,
+    orderHistory,
+    setOrderHistory,
   };
   return (
     <>
