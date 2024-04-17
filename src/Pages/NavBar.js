@@ -52,10 +52,11 @@ const NavBar = () => {
     TokenHandler(null);
     localStorage.removeItem("name");
     localStorage.removeItem("token");
-    localStorage.removeItem("cartItem");
-    localStorage.removeItem("cartList");
-    localStorage.removeItem("wishListCount");
-    localStorage.removeItem("wishList");
+    // localStorage.removeItem("cartItem");
+    // localStorage.removeItem("cartList");
+    // localStorage.removeItem("wishListCount");
+    // localStorage.removeItem("wishList");
+    localStorage.removeItem("userAddressDetails");
     navigate("/");
 
     // console.log("Log Out handler");

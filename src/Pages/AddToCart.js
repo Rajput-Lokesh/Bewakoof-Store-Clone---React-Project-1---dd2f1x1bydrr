@@ -223,7 +223,13 @@ export const AddToCart = () => {
 
                 <button
                   className="bg-[#42a2a2] text-white font-bold py-2 flex justify-between px-5 rounded-md hover:text-black"
-                  onClick={() => navigate("/address")}
+                  onClick={() => {
+                    if (localStorage.getItem("userAddressDetails")) {
+                      navigate("/paymentprocess");
+                    } else {
+                      navigate("/address");
+                    }
+                  }}
                 >
                   ADD ADDRESS
                 </button>

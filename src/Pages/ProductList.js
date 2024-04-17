@@ -45,6 +45,8 @@ export const ProductList = () => {
         if (data && data.length > 0) {
           setProducts((prevData) => [...prevData, ...data]);
           setPage((prevPage) => prevPage + 1);
+        } else {
+          alert("No data found");
         }
       });
     }

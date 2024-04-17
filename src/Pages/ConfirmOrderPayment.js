@@ -18,6 +18,9 @@ export const ConfirmOrderPayment = () => {
     orderCreatedResponse,
     setOrderCreatedResponse,
   } = useAuth();
+
+  console.log("Inside track Order");
+
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const cardValidationSchema = Yup.object({
@@ -33,7 +36,7 @@ export const ConfirmOrderPayment = () => {
 
   const upiValidationSchema = Yup.object({
     upiId: Yup.string()
-      .matches(/^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}$/, {
+      .matches(/^[^@]*@[^@]*$/, {
         message: "Invalid UPI ID",
         excludeEmptyString: true,
       })
@@ -43,39 +46,43 @@ export const ConfirmOrderPayment = () => {
   const codValidationSchema = Yup.object({});
 
   const handleSubmit = async (values) => {
-    const body = {
-      productId: "652675cddaf00355a7838161",
-      quantity: 2,
-      addressType: "HOME",
-      address: {
-        street: address.landmark,
-        city: address.city,
-        state: address.state,
-        country: address.country,
-        zipCode: address.zipCode,
-      },
-    };
-
+    console.log(values);
     try {
-      const response = await axios.post(
-        "https://academics.newtonschool.co/api/v1/ecommerce/order",
-        body,
-        {
-          headers: {
-            projectId: "gar9pityowqx",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setOrderCreatedResponse(response.data.data);
-      console.log(response.data.message);
-      console.log(response.data.data.status);
-      console.log(response.data.data);
+      const requests = cartItemList.map(async (item) => {
+        const { _id: productId, quantity } = item;
 
-      deleteAllCartItems();
-      navigate("/paymentprocess/confirmorderpayment/orderconfirmgreetingPage");
-    } catch (err) {
-      console.log("Error shows ", err);
+        const body = {
+          productId: productId,
+          quantity: quantity,
+          addressType: address.addressType,
+          address: {
+            street: address.landmark,
+            city: address.city,
+            state: address.state,
+            country: address.country,
+            zipCode: address.zipCode,
+          },
+        };
+
+        const response = await axios.post(
+          "https://academics.newtonschool.co/api/v1/ecommerce/order",
+          body,
+          {
+            headers: {
+              projectId: "gar9pityowqx",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+
+        console.log(response);
+        return response;
+      });
+
+      const results = await Promise.all(requests);
+      console.log(results);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -214,11 +221,14 @@ export const ConfirmOrderPayment = () => {
 
               <button
                 type="submit"
-                className={`py-3 px-6 rounded-full mt-6 w-full font-bold hover:bg-blue-600 ${
+                disabled={paymentMethod ? false : true}
+                className={`py-3 px-6 rounded-full mt-6 w-full font-bold  
+                ${
                   paymentMethod
                     ? "bg-blue-500 text-white"
                     : "bg-gray-400 text-white"
-                }`}
+                }
+                `}
               >
                 Confirm Payment
               </button>

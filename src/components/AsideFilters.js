@@ -14,46 +14,59 @@ export const AsideFilters = ({ setList, list }) => {
   const [selectedRating, setSelectedRating] = useState();
 
   useEffect(() => {
-    const filter = {};
-    const sort = {};
-    if (selectedSize) filter.size = selectedSize;
-    if (selectedGender) {
-      setGender(selectedGender);
-      filter.gender = selectedGender;
-      if (getGender === "Men") {
-        const menCat = [
-          "hoodie",
-          "jeans",
-          "jogger",
-          "kurta",
-          "pyjamas",
-          "shirt",
-          "shorts",
-          "sweater",
-          "tracksuit",
-          "trouser",
-        ];
-        setCategories(menCat);
-      } else if (getGender === "Women") {
-        const womenCat = ["jeans", "jogger", "jumpsuit", "kurti", "shirt"];
-        setCategories(womenCat);
+    if (
+      selectedSize ||
+      selectedGender ||
+      searchByCategoryFilter ||
+      getSellerTag ||
+      selectedRating ||
+      selectedSort
+    ) {
+      const filter = {};
+      const sort = {};
+      if (selectedSize) filter.size = selectedSize;
+      if (selectedGender) {
+        setGender(selectedGender);
+        filter.gender = selectedGender;
+        if (getGender === "Men") {
+          const menCat = [
+            "hoodie",
+            "jeans",
+            "jogger",
+            "kurta",
+            "pyjamas",
+            "shirt",
+            "shorts",
+            "sweater",
+            "tracksuit",
+            "trouser",
+          ];
+          setCategories(menCat);
+        } else if (getGender === "Women") {
+          const womenCat = ["jeans", "jogger", "jumpsuit", "kurti", "shirt"];
+          setCategories(womenCat);
+        }
       }
-    }
-    if (searchByCategoryFilter) filter.subCategory = searchByCategoryFilter;
-    if (getSellerTag) filter.sellerTag = getSellerTag;
+      if (searchByCategoryFilter) filter.subCategory = searchByCategoryFilter;
+      if (getSellerTag) filter.sellerTag = getSellerTag;
 
-    if (selectedSort) {
-      sort.price = selectedSort;
-    }
-    if (selectedRating) {
-      sort.ratings = selectedRating;
-    }
+      if (selectedSort) {
+        sort.price = selectedSort;
+      }
+      if (selectedRating) {
+        sort.ratings = selectedRating;
+      }
 
-    const searchApi = `https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?filter=${JSON.stringify(
-      filter
-    )}&sort=${JSON.stringify(sort)}`;
+      console.log("Before : Filter and Sort Objects");
+      console.log(filter);
+      console.log(sort);
 
-    fetchProducts(searchApi);
+      const searchApi = `https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?filter=${JSON.stringify(
+        filter
+      )}&sort=${JSON.stringify(sort)}`;
+
+      fetchProducts(searchApi);
+    }
   }, [
     selectedSize,
     selectedGender,
@@ -97,6 +110,7 @@ export const AsideFilters = ({ setList, list }) => {
       .then((data) => {
         if (data.status === "success") {
           setList(data.data);
+          console.log(list);
         } else {
           alert(`${data.message}`);
         }

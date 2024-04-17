@@ -7,42 +7,23 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   // Token related States start
-
   const [getName, setName] = useState(localStorage.getItem("name"));
-
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  // Token related States end
-
   // Wishlist / addtocart list states start
-  const countWishList = sessionStorage.getItem(`${token}`);
-
   const [wishListCount, setWishListCount] = useState(0);
-
-  const [totalAmmount, setTotalAmmount] = useState(0);
-
   const [wishlistItems, setWishListItems] = useState([]);
-
   const [cartItemCount, setCartItemCount] = useState(0);
   const [cartItemList, setCartItemList] = useState([]);
-
-  // Wishlist / addtocart list states end
-
-  const [getGender, setGender] = useState("Men");
-  const [getSearchProduct, setSearchProduct] = useState("");
-
-  const [getCategories, setCategories] = useState([]);
-
   const [getProductQuntityInAddToCart, setProductQuantityInAddToCart] =
     useState(0);
+  const [totalAmmount, setTotalAmmount] = useState(0);
 
-  const [cartItemToggle, setCartItemToggle] = useState(true);
-
+  // search / filter
+  const [getGender, setGender] = useState("Men");
+  const [getSearchProduct, setSearchProduct] = useState("");
+  const [getCategories, setCategories] = useState([]);
   const [orderCreatedResponse, setOrderCreatedResponse] = useState();
-
-  const [storageData, setStorageData] = useState(
-    JSON.parse(localStorage.getItem("addData"))
-  );
 
   const NameHandler = (data) => {
     setName(data);
@@ -54,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", tokenFromLogInApi);
   };
 
-  // Wislist Fetch data ,add to wishlist , remove from wishlist
+  // Wishlist Fetch data, add to wishlist, remove from wishlist
   const fetchWishList = async () => {
     try {
       const response = await axios.get(
@@ -67,7 +48,7 @@ export const AuthProvider = ({ children }) => {
         setWishListCount(response.data.results);
       }
     } catch (err) {
-      console.log("Curtom error msg =>", err);
+      toast.error("Custom error msg =>", err);
     }
   };
 
@@ -76,7 +57,7 @@ export const AuthProvider = ({ children }) => {
     console.log(token);
     try {
       const response = await axios.patch(
-        `https://academics.newtonschool.co/api/v1/ecommerce/wishlist/`,
+        `${API_BASE_URL}/api/v1/ecommerce/wishlist/`,
         {
           productId: id,
         },
@@ -91,16 +72,12 @@ export const AuthProvider = ({ children }) => {
       if (response.data.status === "success") {
         setWishListItems(response.data.data.items);
         setWishListCount(response.data.results);
-        alert(response.data.message);
         toast.success("Product Added successfully!");
       } else {
-        console.log(response.data.message);
         toast.error(`${response.data.message}`);
       }
     } catch (err) {
-      console.log("Catch Block");
-      alert(err.response.data.message);
-      console.log("Error shows ", err);
+      toast.error(err.response.data.message);
     }
   };
 
@@ -123,10 +100,9 @@ export const AuthProvider = ({ children }) => {
         );
 
         if (response.data.status === "success") {
-          // setCartItemCount(response.data.results);
           setCartItemList(response.data.items);
           setCartItemCount(response.results);
-          alert(response.data.message);
+          toast.success(response.data.message);
         }
       }
     } catch (err) {
@@ -146,17 +122,10 @@ export const AuthProvider = ({ children }) => {
         }
       );
       if (response.data.status === "success") {
-        // setCartItemToggle(!cartItemToggle);
         setWishListCount(response.data.results);
         setWishListItems(response.data.data.items);
-        localStorage.setItem("wishListCount", response.data.results);
-        localStorage.setItem(
-          "wishList",
-          JSON.stringify(response.data.data.items)
-        );
-        alert(response.data.message);
+        toast.success(response.data.message);
       }
-      // setwishListToggle(!wishListToggle);
     } catch (err) {
       console.log("Error shows ", err);
     }
@@ -198,7 +167,7 @@ export const AuthProvider = ({ children }) => {
 
       if (response.status === 200) {
         fetchCartItems();
-        alert(response.data.message);
+        toast.success(response.data.message);
       }
     } catch (err) {
       console.log(err);
@@ -209,7 +178,6 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.delete(
         `https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`,
-
         {
           headers: {
             projectID: "gar9pityowqx",
@@ -237,8 +205,6 @@ export const AuthProvider = ({ children }) => {
     cartItemCount,
     setCartItemCount,
     deleteWishListItems,
-    storageData,
-    setStorageData,
     deleteAllCartItems,
     getCategories,
     setCategories,

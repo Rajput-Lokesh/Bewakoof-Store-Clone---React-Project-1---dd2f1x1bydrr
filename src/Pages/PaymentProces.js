@@ -23,18 +23,21 @@ export const PaymentProcess = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="border text-slate-600  rounded-md p-4">
           <h2 className="text-xl font-semibold mb-4">Delivery Address</h2>
+          <button className="bg-sky-500" onClick={() => navigate("/address")}>
+            Update Address
+          </button>
           <h3>{userDetails.area}</h3>
           <h3>{userDetails.landmark}</h3>
           <h3>{userDetails.city}</h3>
           <h3>{userDetails.state}</h3>
           <h3>{userDetails.country}</h3>
           <h3>{userDetails.addressType}</h3>
+          <h2>Zip code : {userDetails.zipCode}</h2>
         </div>
         <div className="border  text-slate-600 rounded-md p-4">
           <h2 className="text-xl font-semibold mb-4">Contact Info</h2>
           <h1>{userDetails.name}</h1>
           <h2>Mobile : +91-{userDetails.phone}</h2>
-          <h2>Zip code : {userDetails.zipCode}</h2>
         </div>
       </div>
 

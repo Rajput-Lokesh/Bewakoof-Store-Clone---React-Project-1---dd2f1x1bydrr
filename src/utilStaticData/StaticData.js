@@ -167,3 +167,22 @@ export const toHotToMissedSectionImage = [
 ];
 
 //-------------------------------- Home Component end -----------------------------
+
+export const mySlider = [
+  {
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwguzNGlaHChVLISVT_dISedy9PAQsqqEZRB8l92dE5w&s",
+    alt: "google slider",
+    href: "www.google.com",
+  },
+
+  {
+    src: "https://www.shutterstock.com/image-photo/kiev-ukraine-april-08-2015-260nw-277441490.jpg",
+    alt: "facebook page",
+    href: "www.facebook.com",
+  },
+  {
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaUfswEhsAnkW6nQEVfWRxEFuIjXZRdJPE556Cw7p66A&s",
+    alt: "Twetter page",
+    href: "www.tweeter.com",
+  },
+];

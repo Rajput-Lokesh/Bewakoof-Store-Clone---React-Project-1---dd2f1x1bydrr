@@ -3,13 +3,38 @@ import { useAuth } from "../Providers/AuthProvider";
 import axios from "axios";
 
 export function TrackOrder() {
-  const { orderCreatedResponse } = useAuth();
+  // const { orderCreatedResponse } = useAuth();
   const [getOrderProduct, setOrderProduct] = useState();
+
+  // Order history APi Call
+
+  // const getOrderHistory = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://academics.newtonschool.co/api/v1/ecommerce/order/`,
+  //       {
+  //         headers: {
+  //           projectId: "gar9pityowqx",
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
+  //     console.log("Order History");
+  //     console.log(response);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   // getOrderHistory();
+  //   getHistory();
+  // }, []);
 
   const getOrderDetails = async () => {
     try {
       const response = await axios.get(
-        `https://academics.newtonschool.co/api/v1/ecommerce/order/${orderCreatedResponse._id}  `,
+        `https://academics.newtonschool.co/api/v1/ecommerce/order/  `,
         {
           headers: {
             projectId: "gar9pityowqx",
@@ -24,6 +49,7 @@ export function TrackOrder() {
       // setOrderProduct(response.data.data.items[0]);
       console.log(response.data.data.items[0].product.brand);
     } catch (err) {
+      console.log("Inside catch Block");
       console.log(err);
     }
   };
@@ -41,27 +67,27 @@ export function TrackOrder() {
       />
       <div className="bg-white rounded-lg shadow-lg p-6">
         <h1 className="text-xl font-bold mb-4">
-          {orderCreatedResponse.status}
+          {/* {orderCreatedResponse.status} */}
         </h1>
         <h1 className="text-lg font-semibold mb-2">
-          Order Price: {orderCreatedResponse.totalPrice}
+          {/* Order Price: {orderCreatedResponse.totalPrice} */}
         </h1>
 
         <div className="my-6">
           <h1 className="text-lg font-semibold mb-2">Order Details</h1>
           <p className="mb-2">
-            Product: {orderCreatedResponse.items[0].product}
+            {/* Product: {orderCreatedResponse.items[0].product} */}
           </p>
-          <p className="mb-2">Size: {orderCreatedResponse.items[0].size}</p>
+          {/* <p className="mb-2">Size: {orderCreatedResponse.items[0].size}</p> */}
           <p className="mb-2">
-            Quantity: {orderCreatedResponse.items[0].quantity}
+            {/* Quantity: {orderCreatedResponse.items[0].quantity} */}
           </p>
         </div>
 
-        <div>
+        {/* <div>
           <h1 className="text-lg font-semibold mb-2">Shipping Details</h1>
           <div>
-            <p className="mb-1">Order Date: {orderCreatedResponse.orderDate}</p>
+             <p className="mb-1">Order Date: {orderCreatedResponse.orderDate}</p> 
             <p className="mb-1">
               Shipment Type: {orderCreatedResponse.shipmentDetails.type}
             </p>
@@ -81,7 +107,7 @@ export function TrackOrder() {
               State: {orderCreatedResponse.shipmentDetails.address.state}
             </p>
           </div>
-        </div>
+        </div> */}
 
         <div>
           <h1>My Orders</h1>

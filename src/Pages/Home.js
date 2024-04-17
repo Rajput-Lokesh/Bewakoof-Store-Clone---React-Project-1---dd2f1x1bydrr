@@ -7,6 +7,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
+import { Modal } from "../Portals/PortalM";
 import {
   bestDealsResponsiveOptions,
   responsiveOptions,
@@ -16,6 +17,9 @@ import {
   afterSliderSmallCarousal,
   getCategoryImageObject,
 } from "../utilStaticData/StaticData";
+
+// import { MyCarousel } from "../components/Carousel";
+// import { mySlider } from "../utilStaticData/StaticData";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -86,9 +90,21 @@ export const Home = () => {
     );
   };
 
+  // Modal Purpose
+  // const [open, setopen] = useState(false);
+
+  // const handleOpenModal = () => {
+  //   setopen(!open);
+  // };
+
   return (
     <>
       <div className=" w-full mt-[110px] bg-white z-[1]">
+        {/* Modal Portal Start  */}
+        {/* {open && <Modal isOpen={handleOpenModal} />}
+        <button onClick={() => setopen(!open)}>Open Modal</button> */}
+        {/* Modal Portal End  */}
+
         {/* Home Page Main Corousel start */}
         <Carousel
           value={getSliderImageObject}
@@ -101,6 +117,8 @@ export const Home = () => {
           itemTemplate={productTemplate}
         />
         {/* Home Page Main Corousel end */}
+
+        {/* <MyCarousel data={mySlider} /> */}
 
         {/* Home Page small Corousel start */}
         <ul className="flex flex-wrap justify-center ">

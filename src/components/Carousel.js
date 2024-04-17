@@ -5,7 +5,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useNavigate } from "react-router-dom";
 
-const Carousel = ({ data = [] }) => {
+export const MyCarousel = ({ data = [] }) => {
   const [slide, setSlide] = useState(0);
   const nextSlide = () => {
     setSlide(slide === data.length - 1 ? 0 : slide + 1);
@@ -27,6 +27,7 @@ const Carousel = ({ data = [] }) => {
       clearInterval(timer);
     };
   }, []);
+
   return (
     <div className={style.carousel}>
       <ChevronLeftIcon className={style.arrow_left} onClick={prevSlide} />
@@ -37,7 +38,7 @@ const Carousel = ({ data = [] }) => {
             alt={item.alt}
             key={idx}
             className={slide === idx ? style.slides : style.slide_hidden}
-            onClick={() => navigate(item.href)}
+            onClick={() => navigate("www.google.com")}
           />
         );
       })}
@@ -58,5 +59,3 @@ const Carousel = ({ data = [] }) => {
     </div>
   );
 };
-
-export default Carousel;
