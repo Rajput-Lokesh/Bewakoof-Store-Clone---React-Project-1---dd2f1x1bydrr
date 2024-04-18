@@ -9,6 +9,14 @@ export function TrackOrder() {
   console.log("Order Created Response");
   console.log(orderCreatedResponse);
 
+  const { items, totalPrice, status, shipmentDetails, orderDate } =
+    orderCreatedResponse;
+  console.log(items);
+  const { product: productId, quantity, size, _id } = items[0];
+
+  const { type, address } = shipmentDetails;
+  const { city, street, country, state, zipCode } = address;
+
   // Order history APi Call
 
   // const getOrderHistory = async () => {
@@ -46,7 +54,7 @@ export function TrackOrder() {
         }
       );
 
-      console.log("Get Order Details...");
+      console.log("Get Order Detail s...");
       console.log(response);
       console.log(response.data);
       console.log(response.data.data);
@@ -60,7 +68,22 @@ export function TrackOrder() {
 
   useEffect(() => {
     getOrderDetails();
+    getSingleOrderDetails(productId);
   }, []);
+
+  const getSingleOrderDetails = async (orderId) => {
+    const res = await axios.get(
+      `https://academics.newtonschool.co/api/v1/ecommerce/order/${orderId}`,
+      {
+        headers: {
+          projectId: "gar9pityowqx",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    console.log("Single Product details");
+    console.log(res);
+  };
 
   // Modal Purpose
   const [open, setopen] = useState(false);
@@ -72,68 +95,44 @@ export function TrackOrder() {
   return (
     <div className="container mx-auto px-4 py-8 mt-[60px]">
       {open && <Modal isOpen={handleOpenModal} />}
-      <div>
+      <div className="flex flex-col items-center">
         <button
-          className="bg-sky-200 rounded-lg px-4 py-1 text-slate-400 font-bold"
+          className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
           onClick={() => setopen(!open)}
         >
           Order History
         </button>
-      </div>
 
-      <img
-        className="w-full md:max-w-lg mx-auto mb-8"
-        src="https://sanfe.in/cdn/shop/files/Track-your-order.jpg?v=1614253167&width=1600"
-        alt="Track your order"
-      />
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-xl font-bold mb-4">
-          {/* {orderCreatedResponse.status} */}
-        </h1>
-        <h1 className="text-lg font-semibold mb-2">
-          {/* Order Price: {orderCreatedResponse.totalPrice} */}
-        </h1>
-
-        <div className="my-6">
-          <h1 className="text-lg font-semibold mb-2">Order Details</h1>
-          <p className="mb-2">
-            {/* Product: {orderCreatedResponse.items[0].product} */}
-          </p>
-          {/* <p className="mb-2">Size: {orderCreatedResponse.items[0].size}</p> */}
-          <p className="mb-2">
-            {/* Quantity: {orderCreatedResponse.items[0].quantity} */}
-          </p>
-        </div>
-
-        {/* <div>
-          <h1 className="text-lg font-semibold mb-2">Shipping Details</h1>
-          <div>
-            <p className="mb-1">Order Date: {orderCreatedResponse.orderDate}</p>
-            <p className="mb-1">
-              Shipment Type: {orderCreatedResponse.shipmentDetails.type}
-            </p>
-            <p className="mb-1">
-              Country: {orderCreatedResponse.shipmentDetails.address.country}
-            </p>
-            <p className="mb-1">
-              City: {orderCreatedResponse.shipmentDetails.address.city}
-            </p>
-            <p className="mb-1">
-              Street: {orderCreatedResponse.shipmentDetails.address.street}
-            </p>
-            <p className="mb-1">
-              Zip Code: {orderCreatedResponse.shipmentDetails.address.zipCode}
-            </p>
-            <p className="mb-1">
-              State: {orderCreatedResponse.shipmentDetails.address.state}
-            </p>
+        <div className="bg-gray-100 p-4 rounded-lg w-full max-w-xl">
+          <h1 className="text-xl font-bold mb-2">Order Details</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <h1 className="text-lg font-semibold">Order Status:</h1>
+              <p>{status}</p>
+              <h1 className="text-lg font-semibold mt-2">Total Price:</h1>
+              <p>{totalPrice}</p>
+              <h1 className="text-lg font-semibold mt-2">Order Date:</h1>
+              <p>{orderDate}</p>
+              <h1 className="text-lg font-semibold mt-2">Quantity:</h1>
+              <p>{quantity}</p>
+              <h1 className="text-lg font-semibold mt-2">Order Id:</h1>
+              <p>{_id}</p>
+              <h1 className="text-lg font-semibold mt-2">Product Id:</h1>
+              <p>{productId}</p>
+              <h1 className="text-lg font-semibold mt-2">Size:</h1>
+              <p>{size}</p>
+            </div>
+            <div>
+              <div className="mb-4">
+                <h1 className="text-lg font-semibold">Shipping Details</h1>
+                <h2>{type}</h2>
+                <p>
+                  {city}, {street}, {country}, {state}, {zipCode}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div>
-          <h1>My Orders</h1>
-          <div>{getOrderProduct.product.brand}</div>
-        </div> */}
       </div>
     </div>
   );

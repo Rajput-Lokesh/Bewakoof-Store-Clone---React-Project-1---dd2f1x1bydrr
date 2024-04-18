@@ -22,10 +22,17 @@ export const PaymentProcess = () => {
     <div className=" mt-[6rem] container mx-auto ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="border text-slate-600  rounded-md p-4">
-          <h2 className="text-xl font-semibold mb-4">Delivery Address</h2>
-          <button className="bg-sky-500" onClick={() => navigate("/address")}>
-            Update Address
-          </button>
+          <div className="flex flex-col md:flex-row justify-between mb-4">
+            <h2 className="text-xl font-semibold mb-4">Delivery Address</h2>
+            <button
+              className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              onClick={() => navigate("/address")}
+            >
+              Update Address
+            </button>
+          </div>
+          <hr />
+
           <h3>{userDetails.area}</h3>
           <h3>{userDetails.landmark}</h3>
           <h3>{userDetails.city}</h3>

@@ -20,6 +20,9 @@ export const ConfirmOrderPayment = () => {
   } = useAuth();
 
   console.log("Inside track Order");
+  console.log(cartItemList);
+  console.log(cartItemList[0].product._id);
+  console.log(cartItemList[0].quantity);
 
   const [paymentMethod, setPaymentMethod] = useState("");
 
@@ -51,8 +54,8 @@ export const ConfirmOrderPayment = () => {
       const response = await axios.post(
         "https://academics.newtonschool.co/api/v1/ecommerce/order",
         {
-          productId: `652675ccdaf00355a78380f8`,
-          quantity: 2,
+          productId: `${cartItemList[0].product._id}`,
+          quantity: `${cartItemList[0].quantity}`,
           addressType: "HOME",
           address: {
             street: address.area,
@@ -88,26 +91,26 @@ export const ConfirmOrderPayment = () => {
 
   {
     /*
- try {
+  try {
       const requests = cartItemList.map(async (item) => {
-        const { _id: productId, quantity } = item;
-
-        const body = {
-          productId: productId,
-          quantity: quantity,
-          addressType: address.addressType,
-          address: {
-            street: address.landmark,
-            city: address.city,
-            state: address.state,
-            country: address.country,
-            zipCode: address.zipCode,
-          },
-        };
+        // const { _id: productId, quantity } = item;
+        const { product, quantity } = item;
+        const { _id } = product;
 
         const response = await axios.post(
           "https://academics.newtonschool.co/api/v1/ecommerce/order",
-          body,
+          {
+            productId: _id,
+            quantity: quantity,
+            addressType: address.addressType,
+            address: {
+              street: address.landmark,
+              city: address.city,
+              state: address.state,
+              country: address.country,
+              zipCode: address.zipCode,
+            },
+          },
           {
             headers: {
               projectId: "gar9pityowqx",
@@ -133,7 +136,7 @@ export const ConfirmOrderPayment = () => {
   };
 
   return (
-    <div className="container mx-auto mt-8 px-4">
+    <div className="container mx-auto  px-4 mt-28">
       <h1 className="text-2xl font-bold mb-6">Choose Your Payment Mode</h1>
       <div className="flex flex-col md:flex-row gap-4">
         <Formik
